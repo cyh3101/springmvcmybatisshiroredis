@@ -120,6 +120,7 @@
       <artifactId>freemarker</artifactId>
       <version>2.3.23</version>
     </dependency>
+
     <dependency>
       <groupId>net.mingsoft</groupId>
       <artifactId>shiro-freemarker-tags</artifactId>
