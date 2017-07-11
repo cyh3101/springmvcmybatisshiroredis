@@ -13,12 +13,13 @@
     </bean>
 
     <!--配置通用视图解析器-->
+    <!--
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
         <property name="order" value="1"/>
-    </bean>
+    </bean>-->
     <!--配置freemaker-->
     <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/ftl/"/>
@@ -26,10 +27,12 @@
     </bean>
 
     <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-        <property name="viewClass" value="com.cyh.core.freemarker.FreeMarkerViewExtend"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
         <property name="suffix" value=".ftl"/>
         <property name="contentType" value="text/html;charset=utf-8"/>
         <property name="order" value="0"/>
+        <property name="requestContextAttribute" value="request"/>
+        <property name="exposeRequestAttributes" value="true"/>
     </bean>
 
 

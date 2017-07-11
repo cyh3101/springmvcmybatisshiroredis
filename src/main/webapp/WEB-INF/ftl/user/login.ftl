@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<#assign base=request.contextPath />
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <script href="${basePath}/js/jquery-3.2.1.js"/>
+    <script src="${base}/js/jquery-3.2.1.js" type="text/javascript"></script>
     <title>Title</title>
     <script type="text/javascript">
         $('#login').click(function () {
@@ -11,7 +12,7 @@
             var data = {pswd:password,email:username,rememberMe:$("rememberMe").is(':checked')};
             $.ajax({
             	type:"post",
-            	url:"/u/login/",
+            	url:"${base}/u/login/",
             	data:data,
             	dataType:"json",
             	async:true,
@@ -25,6 +26,7 @@
 <body id="body">
     <div class="page-contain">
         <h1>登录</h1>
+        ${base}
         <form name="_form" method="post">
             <input type="text" name="account" class="username" placeholder="用户名"/>
             <input type="password" name="password" class="password" placeholder="密码"/>
