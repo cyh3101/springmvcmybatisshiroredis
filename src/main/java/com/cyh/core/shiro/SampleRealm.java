@@ -7,11 +7,13 @@ import com.cyh.permission.service.RoleService;
 import com.cyh.user.service.UUserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by cai on 2017/7/13.
@@ -25,7 +27,15 @@ public class SampleRealm extends AuthorizingRealm{
     private PermisionService permisionService;
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        String email = principalCollection.getPrimaryPrincipal().toString();
+        UUser user = uUserService.findUserByEmail(email);
+        Set<String> permissions = permisionService.findPermissionByUserId(user.getId());
+        info.setStringPermissions(permissions);
+
+        Set<String> roles = roleService.findRoleByUserId(user.getId());
+        info.setRoles(roles);
+        return info;
     }
 
     @Override
