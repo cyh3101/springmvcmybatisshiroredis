@@ -3,22 +3,40 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <script src="${base}/js/jquery-3.2.1.js" type="text/javascript"></script>
+    <script src="${basePath}/js/jquery-3.2.1.js" type="text/javascript"></script>
+    <script src="${basePath}/js/layui/layui.js"></script>
     <title>Title</title>
     <script type="text/javascript">
-        $('#login').click(function () {
-            var username = $('username').val();
-            var password = $('password').val();
-            var data = {pswd:password,email:username,rememberMe:$("rememberMe").is(':checked')};
-            $.ajax({
-            	type:"post",
-            	url:"${base}/u/login/",
-            	data:data,
-            	dataType:"json",
-            	async:true,
-                beforeSend:function () {
+        $(document).ready(function () {
+            $('#login').click(function () {
+                var username = $('.username').val();
+                var password = $('.password').val();
+                var data = {pswd:password,email:username,rememberMe:$("#rememberMe").is(':checked')};
+                $.ajax({
+                    type:"post",
+                    url:"${base}/u/submitLogin/",
+                    data:data,
+                    dataType:"json",
+                    async:true,
+                    beforeSend:function () {
+                        //layui.layer.msg('登陆中');
+                        layui.use(['layer'],function () {
+                            var layer = layui.layer
+                            layer.msg('登陆中');
+                        });
+                    },
+                    success:function (result) {
+                        //layer.close(load);
+                        if(result && result.status != 200){
 
-                }
+                        }else {
+                            layui.use(['layer'],function () {
+                                var layer = layui.layer
+                                layer.msg('登陆成功');
+                            });
+                        }
+                    }
+                });
             });
         });
     </script>

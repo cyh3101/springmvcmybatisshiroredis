@@ -20,36 +20,37 @@ import javax.security.auth.login.AccountLockedException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Created by cai on 2017/7/8.
  */
 @Controller
-@RequestMapping(value = "u")
+@RequestMapping(value = "/u")
 public class UserLoginController extends BaseController{
 
     @Autowired
     private UUserService uUserService;
 
-    @RequestMapping(value = "login" , method = RequestMethod.GET)
+    @RequestMapping(value = "/login" , method = RequestMethod.GET)
     public ModelAndView login(){
         return new ModelAndView("user/login");
     }
 
-    @RequestMapping(value = "register" , method = RequestMethod.GET)
+    @RequestMapping(value = "/register" , method = RequestMethod.GET)
     public ModelAndView register(){
         return new ModelAndView("user/register");
     }
 
     //登录提交
-    @RequestMapping(value = "submitLogin" , method = RequestMethod.POST)
+    @RequestMapping(value = "/submitLogin" , method = RequestMethod.POST)
     @ResponseBody
     public Map<String , Object> submitLogin(UUser user , boolean rememberMe , HttpServletRequest request){
         Map<String , Object> resultMap = new HashMap<String , Object>();
         try {
             UsernamePasswordToken token = new UsernamePasswordToken(user.getEmail() , user.getPswd());
             token.setRememberMe(rememberMe);
-
+            System.out.println("user : " + user.toString());
             Subject subject = SecurityUtils.getSubject();
             subject.login(token);
             resultMap.put("status" , 200);

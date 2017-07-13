@@ -73,4 +73,17 @@ public class UUser implements Serializable{
     public void setStatus(Long status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "UUser{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", pswd='" + pswd + '\'' +
+                ", createTime=" + createTime +
+                ", lastLoginTime=" + lastLoginTime +
+                ", status=" + status +
+                '}';
+    }
 }

@@ -11,8 +11,13 @@ import java.util.Map;
 public class FreeMarkerViewExtend extends FreeMarkerView{
     @Override
     protected void exposeHelpers(Map<String, Object> model, HttpServletRequest request) throws Exception {
-        model.put("base" , request.getContextPath());
-        System.out.println("request.getContextPath(): "  + request.getContextPath());
+        String scheme = request.getScheme();
+        String host = request.getServerName();
+        int port = request.getLocalPort();
+        String contextPath = request.getContextPath();
+        String basePath = scheme + "://" + host + ":" + port + contextPath;
+        model.put("basePath" , basePath);
+        System.out.println("basePath: "  + basePath);
         super.exposeHelpers(model, request);
     }
 }
