@@ -1,8 +1,7 @@
 package com.cyh.core.shiro;
 
 import com.cyh.common.model.UUser;
-import com.cyh.common.model.UUserRole;
-import com.cyh.permission.service.PermisionService;
+import com.cyh.permission.service.PermissionService;
 import com.cyh.permission.service.RoleService;
 import com.cyh.user.service.UUserService;
 import org.apache.shiro.authc.*;
@@ -24,13 +23,13 @@ public class SampleRealm extends AuthorizingRealm{
     @Autowired
     private RoleService roleService;
     @Autowired
-    private PermisionService permisionService;
+    private PermissionService permissionService;
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         String email = principalCollection.getPrimaryPrincipal().toString();
         UUser user = uUserService.findUserByEmail(email);
-        Set<String> permissions = permisionService.findPermissionByUserId(user.getId());
+        Set<String> permissions = permissionService.findPermissionByUserId(user.getId());
         info.setStringPermissions(permissions);
 
         Set<String> roles = roleService.findRoleByUserId(user.getId());
