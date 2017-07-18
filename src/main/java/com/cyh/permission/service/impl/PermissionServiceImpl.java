@@ -3,12 +3,14 @@ package com.cyh.permission.service.impl;
 import com.cyh.common.dao.UPermissionMapper;
 import com.cyh.permission.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 /**
  * Created by cai on 2017/7/13.
  */
+@Service
 public class PermissionServiceImpl implements PermissionService {
     @Autowired
     private UPermissionMapper uPermissionMapper;

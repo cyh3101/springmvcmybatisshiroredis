@@ -4,6 +4,7 @@ import com.cyh.common.dao.UUserMapper;
 import com.cyh.common.model.UUser;
 import com.cyh.user.service.UUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.Map;
 /**
  * Created by cai on 2017/7/9.
  */
+@Service
 public class UUserServiceImpl implements UUserService{
     @Autowired
     private UUserMapper userMapper;
