@@ -2,21 +2,48 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+    <!--定义shirofilter factory-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="loginUrl" value="u/login"/>
+        <property name="securityManager" ref="securityManager"/>
+        <property name="filters">
+            <map>
+                <entry key="authc" value-ref="formAuthenticationFilter"></entry>
+            </map>
+        </property>
+    </bean>
+    <!--登陆筛选-->
+    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+        <property name="usernameParam" value="userName"/>
+        <property name="passwordParam" value="password"/>
+        <property name="rememberMeParam" value="rememberMe"/>
+        <property name="loginUrl" value="u/login"/>
+    </bean>
+    <!--安全管理器-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="cacheManager" ref="customCacheManager"/>
         <property name="realm" ref="myRealm"/>
 
      </bean>
-
+    <!--realm-->
     <bean id="myRealm" class="com.cyh.core.shiro.SampleRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
 
     </bean>
+    <!--密码验证-->
+    <bean id="credentialsMatcher" class="com.cyh.core.shiro.MyCredentialsMatcher">
+    </bean>
+
+    <!--缓存管理器-->
     <bean id="customCacheManager" class="com.cyh.core.shiro.cache.impl.CustomCacheManager">
         <property name="shiroCacheManager" ref="jedisShiroCacheManager"/>
     </bean>
     <bean id="jedisShiroCacheManager" class="com.cyh.core.shiro.cache.impl.JedisShiroCacheManager">
 
     </bean>
+
+
 
 
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">

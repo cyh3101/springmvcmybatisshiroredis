@@ -28,7 +28,11 @@
                     success:function (result) {
                         //layer.close(load);
                         if(result && result.status != 200){
-
+                            layui.use(['layer'],function () {
+                                var layer = layui.layer
+                                return layer.msg("status:" + result.status +
+                                        "  message: " + result.message),!1;
+                            });
                         }else {
                             layui.use(['layer'],function () {
                                 var layer = layui.layer

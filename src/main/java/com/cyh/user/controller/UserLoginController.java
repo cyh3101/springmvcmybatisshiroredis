@@ -2,6 +2,7 @@ package com.cyh.user.controller;
 
 import com.cyh.common.controller.BaseController;
 import com.cyh.common.model.UUser;
+import com.cyh.user.manager.UserManager;
 import com.cyh.user.service.UUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.DisabledAccountException;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.security.auth.login.AccountLockedException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -48,7 +50,9 @@ public class UserLoginController extends BaseController{
     public Map<String , Object> submitLogin(UUser user , boolean rememberMe , HttpServletRequest request){
         Map<String , Object> resultMap = new HashMap<String , Object>();
         try {
+            user = UserManager.getMD5(user);
             UsernamePasswordToken token = new UsernamePasswordToken(user.getEmail() , user.getPswd());
+
             token.setRememberMe(rememberMe);
             System.out.println("user : " + user.toString());
             Subject subject = SecurityUtils.getSubject();
@@ -66,5 +70,28 @@ public class UserLoginController extends BaseController{
             resultMap.put("message" , "账号或密码错误");
         }
         return  resultMap;
+    }
+
+    @RequestMapping(value = "/subRegister" , method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String , Object> subRegister(UUser user){
+        Map<String , Object> resultMap = new HashMap<>();
+        String email = user.getEmail();
+        if(null != uUserService.findUserByEmail(email)){
+            resultMap.put("status" , 500);
+            resultMap.put("message" , "用户已经注册过了");
+            return resultMap;
+        }
+        Date date = new Date();
+        user.setCreateTime(date);
+        user.setLastLoginTime(date);
+        user = UserManager.getMD5(user);
+        user.setStatus(new Long(1));
+        uUserService.insert(user);
+
+        System.out.println("注册成功");
+        resultMap.put("status" , 200);
+        resultMap.put("message" , "注册成功");
+        return resultMap;
     }
 }

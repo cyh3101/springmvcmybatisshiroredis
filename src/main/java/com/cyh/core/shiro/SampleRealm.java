@@ -40,7 +40,8 @@ public class SampleRealm extends AuthorizingRealm{
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
-        UUser user = uUserService.login((String)token.getPrincipal() , (String)token.getCredentials());
+        UUser user = uUserService.login((String)token.getPrincipal() , new String(token.getPassword()));
+        System.out.println("=================info===========================");
         if(null == user){
             throw new AccountException("账号或密码错误");
         }else if(user.getStatus() == 0){
@@ -49,7 +50,7 @@ public class SampleRealm extends AuthorizingRealm{
             user.setLastLoginTime(new Date());
             uUserService.updateByPrimaryKeySelective(user);
         }
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user , user.getPswd() , getName());
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user.getEmail() , user.getPswd() , getName());
         return info;
     }
 }
