@@ -2,6 +2,7 @@ package com.cyh.core.mybatis.page;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.session.Configuration;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import java.lang.reflect.ParameterizedType;
@@ -49,5 +50,20 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport{
 
     public List<T> findList(Map<String , Object> params , Integer pageNo , Integer pageSize){
         return findList(DEFAULT_SQL_ID , params , pageNo , pageSize);
+    }
+
+    public Pagination findPage(String sqlId , String countId ,
+                               Map<String , Object> params , Integer pageNo , Integer pageSize){
+        pageNo = pageNo == null ? 1 : pageNo;
+        pageSize = pageSize == null ? 10 : pageSize;
+        Pagination page = new Pagination();
+        page.setPageNo(pageNo);
+        page.setPageSize(pageSize);
+
+        Configuration configuration = this.getSqlSession().getConfiguration();
+        int offset = (page.getPageNo() - 1) * page.getPageSize();
+        String page_sql = String.format("limit %s , %s" , offset , pageSize);
+        params.put("page_sql" , page_sql);
+        return page;
     }
 }
