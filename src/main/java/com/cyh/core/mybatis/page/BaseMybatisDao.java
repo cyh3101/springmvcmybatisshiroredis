@@ -1,12 +1,18 @@
 package com.cyh.core.mybatis.page;
 
+import com.cyh.common.utils.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.session.Configuration;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +58,15 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport{
         return findList(DEFAULT_SQL_ID , params , pageNo , pageSize);
     }
 
+    /**
+     * 分页
+     * @param sqlId
+     * @param countId
+     * @param params
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     public Pagination findPage(String sqlId , String countId ,
                                Map<String , Object> params , Integer pageNo , Integer pageSize){
         pageNo = pageNo == null ? 1 : pageNo;
@@ -60,10 +75,73 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport{
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
 
-        Configuration configuration = this.getSqlSession().getConfiguration();
+        Configuration config = this.getSqlSession().getConfiguration();
         int offset = (page.getPageNo() - 1) * page.getPageSize();
         String page_sql = String.format("limit %s , %s" , offset , pageSize);
         params.put("page_sql" , page_sql);
+
+        BoundSql boundSql = config.getMappedStatement(sqlId).getBoundSql(params);
+        String sqlCode = boundSql.getSql();
+
+        String countCode = "";
+        BoundSql countSql = null;
+        if(StringUtils.isBlank(countId)){
+            countCode = sqlCode;
+            countSql = boundSql;
+        }else {
+            countId = String.format("%s.%s", NAMESPACE, countId);
+            countSql = config.getMappedStatement(countId).getBoundSql(params);
+            countCode= countSql.getSql();
+        }
+
+        try {
+            //处理list
+            Connection conn = this.getSqlSession().getConnection();
+            List resultList = this.getSqlSession().selectList(sqlId, params);
+            page.setList(resultList);
+
+            //处理count
+            PreparedStatement ps = getPreparedStatment4Count(countCode,countSql.getParameterMappings(),
+                    params,conn);
+            ps.execute();
+            ResultSet resultSet= ps.getResultSet();
+            while(resultSet.next()){
+                page.setTotalCount(resultSet.getInt(1));
+            }
+        } catch (Exception e){
+
+        }
         return page;
+    }
+
+    /**
+     * 重载findPage
+     * @param params
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public Pagination findPage(Map<String, Object> params, Integer pageNo, Integer pageSize) {
+        return findPage(DEFAULT_SQL_ID, DEFAULT_COUNT_SQL_ID, params, pageNo, pageSize);
+    }
+
+    /**
+     * 查询count
+     * @param sql
+     * @param parameterMappingList
+     * @param params
+     * @param conn
+     * @return
+     * @throws SQLException
+     */
+    private PreparedStatement getPreparedStatment4Count(String sql,
+             List<ParameterMapping> parameterMappingList,
+             Map<String, Object> params, Connection conn) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement(StringUtils.trim(sql));
+        int index = 1;
+        for (int i = 0;i<parameterMappingList.size();i++){
+            ps.setObject(index++,params.get(parameterMappingList.get(i).getProperty()));
+        }
+        return ps;
     }
 }
