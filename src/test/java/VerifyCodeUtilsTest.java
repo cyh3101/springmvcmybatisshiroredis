@@ -11,7 +11,12 @@ public class VerifyCodeUtilsTest extends BaseTest{
     @Test
     public void test(){
         File dir = new File("d:/verifies");
-        File file = new File(dir,"aaaa." + "jpg");
-        VerifyCodeUtils.outputVerifyImage(200, 50, file, 5);
+
+
+        for (int i = 0;i < 100; i++) {
+            String verifyCode = VerifyCodeUtils.generateVerifyCode(5);
+            File file = new File(dir,verifyCode  + ".jpg");
+            VerifyCodeUtils.outputImage(200, 50, file, verifyCode);
+        }
     }
 }
