@@ -80,21 +80,40 @@ public class VerifyCodeUtils {
         return verifyCode.toString();
     }
 
-    public static void outputImage(int w , int h , OutputStream os , String code){
+    public static void outputImage(int w, int h, OutputStream os, String code) {
         int verifySize = code.length();
-        BufferedImage image = new BufferedImage(w,h,BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         Random random = new Random();
         Graphics2D g2 = image.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);//消除线段的锯齿状边缘
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//消除线段的锯齿状边缘
         Color[] colors = new Color[5];
-        Color[] colorSpaces = new Color[]{Color.WHITE,Color.CYAN,Color.GRAY,Color.LIGHT_GRAY,
-                Color.MAGENTA,Color.ORANGE,Color.PINK,Color.YELLOW};
+        Color[] colorSpaces = new Color[]{Color.WHITE, Color.CYAN, Color.GRAY, Color.LIGHT_GRAY,
+                Color.MAGENTA, Color.ORANGE, Color.PINK, Color.YELLOW};
         float[] fractions = new float[colors.length];
 
-        for (int i = 0;i < colors.length;i++){
+        for (int i = 0; i < colors.length; i++) {
             colors[i] = colorSpaces[random.nextInt(colorSpaces.length)];
             fractions[i] = random.nextFloat();
         }
         Arrays.sort(fractions);
+
+        g2.setColor(Color.GRAY);
+        g2.fillRect(0, 0, w, h);//设置边框
+
+        g2.setColor(getRandomColor(200, 250));
+        g2.fillRect(0, 2, w, h - 4);
+    }
+
+    private static Color getRandomColor(int fc, int bc) {
+        if (fc > 255) {
+            fc = 255;
+        }
+        if (bc > 255) {
+            bc = 255;
+        }
+        int r = fc + random.nextInt(bc - fc);
+        int g = fc + random.nextInt(bc - fc);
+        int b = fc + random.nextInt(bc - fc);
+        return new Color(r, g, b);
     }
 }
