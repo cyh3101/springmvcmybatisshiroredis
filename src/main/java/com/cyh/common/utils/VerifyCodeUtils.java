@@ -1,5 +1,9 @@
 package com.cyh.common.utils;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -76,5 +80,21 @@ public class VerifyCodeUtils {
         return verifyCode.toString();
     }
 
+    public static void outputImage(int w , int h , OutputStream os , String code){
+        int verifySize = code.length();
+        BufferedImage image = new BufferedImage(w,h,BufferedImage.TYPE_INT_RGB);
+        Random random = new Random();
+        Graphics2D g2 = image.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);//消除线段的锯齿状边缘
+        Color[] colors = new Color[5];
+        Color[] colorSpaces = new Color[]{Color.WHITE,Color.CYAN,Color.GRAY,Color.LIGHT_GRAY,
+                Color.MAGENTA,Color.ORANGE,Color.PINK,Color.YELLOW};
+        float[] fractions = new float[colors.length];
 
+        for (int i = 0;i < colors.length;i++){
+            colors[i] = colorSpaces[random.nextInt(colorSpaces.length)];
+            fractions[i] = random.nextFloat();
+        }
+        Arrays.sort(fractions);
+    }
 }

@@ -1,5 +1,7 @@
 package com.cyh.common.controller;
 
+import com.cyh.common.utils.VerifyCodeUtils;
+import com.cyh.core.shiro.token.manager.TokenManager;
 import com.cyh.permission.service.RoleService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.stereotype.Controller;
@@ -76,6 +78,8 @@ public class CommonController extends BaseController{
         response.setDateHeader("Expires",0);
         response.setContentType("image/jpg");
 
+        String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
+        TokenManager.setValue2Session(VerifyCodeUtils.V_CODE, verifyCode);
 
     }
 }
