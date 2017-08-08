@@ -27,10 +27,6 @@ public class StringUtils extends org.apache.commons.lang.StringUtils{
         return isBlank(object);
     }
 
-    public static boolean isBlank(Object object){
-        return isBlank(object);
-    }
-
     public static boolean isBlank(String...strings){
         Object[] objects = strings;
         return isBlank(objects);
