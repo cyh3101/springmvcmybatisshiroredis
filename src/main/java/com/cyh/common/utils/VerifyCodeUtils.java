@@ -18,7 +18,7 @@ import java.util.Random;
  */
 public class VerifyCodeUtils {
     //可以显示的字符
-    public static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNOPQRSTUVWXYZ";
+    private static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNOPQRSTUVWXYZ";
 
     //验证码key
     public static final String V_CODE = "_CODE";

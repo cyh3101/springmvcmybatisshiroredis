@@ -1,5 +1,8 @@
 package com.cyh.common.utils;
 
+
+import net.sf.json.JSONObject;
+
 import java.io.*;
 
 /**
@@ -24,8 +27,9 @@ public class SerializeUtil {
             os = new ObjectOutputStream(bo);
             os.writeObject(object);
             bt = bo.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            LoggerUtils.fmtError(SerializeUtil.class, e,"serialize error %s",
+                    JSONObject.fromObject(object));
         } finally {
             close(os);
             close(bo);
@@ -40,7 +44,7 @@ public class SerializeUtil {
      * @param <T>
      * @return
      */
-    public static <T> T deserialize(byte[] in, Class<T> requiredType){
+    public static <T> T deserialize(byte[] in, Class<T>... requiredType){
         ByteArrayInputStream bi = null;
         ObjectInputStream oi = null;
         Object object = null;
@@ -50,10 +54,9 @@ public class SerializeUtil {
                 oi = new ObjectInputStream(bi);
                 object = oi.readObject();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            LoggerUtils.fmtError(SerializeUtil.class, e, "serialize error %s",
+                    in);
         }
         return (T)object;
     }
@@ -76,7 +79,7 @@ public class SerializeUtil {
             try {
                 closeable.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                LoggerUtils.fmtError(SerializeUtil.class,"close stream error");
             }
         }
     }

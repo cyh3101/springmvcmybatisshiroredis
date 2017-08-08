@@ -1,6 +1,9 @@
 package com.cyh.common.utils;
 
+import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
+
+import java.io.IOException;
 
 /**
  * 日志工具类
@@ -69,7 +72,7 @@ public class LoggerUtils {
      * @param fmtString
      * @param value
      */
-    public static void fmtError(Class<? extends Object> clazz, Exception e, String fmtString, String...value){
+    public static void fmtError(Class<? extends Object> clazz, Exception e, String fmtString, Object...value){
         if(!isDebug)return;
         if(StringUtils.isBlank(fmtString)){
             return;
@@ -80,7 +83,13 @@ public class LoggerUtils {
         error(clazz, fmtString, e);
     }
 
-    public static void fmtError(Class<? extends Object> clazz, String fmtString, String...value){
+    /**
+     * 异常填充值输出
+     * @param clazz 目标.class
+     * @param fmtString 输出信息key
+     * @param value 输出信息value
+     */
+    public static void fmtError(Class<? extends Object> clazz, String fmtString, Object... value){
         if(!isDebug)return;
         if(StringUtils.isBlank(fmtString)){
             return;
