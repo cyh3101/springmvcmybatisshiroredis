@@ -32,6 +32,10 @@ public class Pagination<T> extends SimplePage implements Paginable , Serializabl
         this.list = list;
     }
 
+    /**
+     * 得到分页html字符串
+     * @return
+     */
     public String getPageHtml(){
         StringBuffer pageHtml = new StringBuffer();
 
