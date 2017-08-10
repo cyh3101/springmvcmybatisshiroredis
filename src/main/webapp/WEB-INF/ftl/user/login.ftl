@@ -3,9 +3,31 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <script src="${basePath}/js/jquery-3.2.1.js" type="text/javascript"></script>
-    <script src="${basePath}/js/layui/layui.js"></script>
+
+    <link rel="stylesheet" href="${basePath}/css/login/reset.css"/>
+    <link rel="stylesheet" href="${basePath}/css/login/supersized.css"/>
+    <link rel="stylesheet" href="${basePath}/css/login/style.css"/>
+
     <title>Title</title>
+
+</head>
+<body id="body">
+    <div id="supersized"></div>
+    <div class="page-container">
+        <h1>登录</h1>
+        ${base}
+        <form name="_form" method="post">
+            <input type="text" name="account" class="username" placeholder="用户名"/>
+            <input type="password" name="password" class="password" placeholder="密码"/>
+            <label><input id="rememberMe" style="width: 10px;height:10px;" type="checkbox" checked="checked"/>记住我 </label>
+            <input type="button" value="登录" id="login"/>
+            <input type="button" value="注册" id="register"/>
+        </form>
+    </div>
+    <script src="${basePath}/js/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="${basePath}/js/common/supersized.3.2.7.min.js"></script>
+    <script src="${basePath}/js/common/supersized-init.js"></script>
+    <script src="${basePath}/js/layui/layui.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#login').click(function () {
@@ -42,20 +64,10 @@
                     }
                 });
             });
+            $("#register").click(function () {
+                window.location.href = "register";
+            });
         });
     </script>
-</head>
-<body id="body">
-    <div class="page-contain">
-        <h1>登录</h1>
-        ${base}
-        <form name="_form" method="post">
-            <input type="text" name="account" class="username" placeholder="用户名"/>
-            <input type="password" name="password" class="password" placeholder="密码"/>
-            <label><input id="rememberMe" type="checkbox" checked="checked"/>记住我 </label>
-            <input type="button" value="登录" id="login"/>
-            <input type="button" value="注册" id="register"/>
-        </form>
-    </div>
 </body>
 </html>

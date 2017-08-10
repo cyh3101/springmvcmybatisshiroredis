@@ -1,12 +1,24 @@
 <html>
 <head>
     <title>register</title>
-    <link href="${basePath}/css/layui.css"/>
-    <link href="${basePath}/css/bootstrap.min.css"/>
-    <script src="${basePath}/js/jquery-3.2.1.js"></script>
+    <link rel="stylesheet" href="${basePath}/css/layui.css"/>
+    <link rel="stylesheet" href="${basePath}/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="${basePath}/css/login/supersized.css"/>
+    <link rel="stylesheet" href="${basePath}/css/login/style.css"/>
+    <style>
+        #vcode >img{cursor:pointer;margin-bottom: -15px;border-radius:5px;}
+    </style>
+    <script src="${basePath}/js/jquery-1.8.2.min.js"></script>
+    <script src="${basePath}/js/common/supersized.3.2.7.min.js"></script>
+    <script src="${basePath}/js/common/supersized-init.js"></script>
     <script src="${basePath}/js/layui/layui.js"></script>
     <script>
         $(document).ready(function () {
+            $("#vcode").on("click",'img',function () {
+                var i = new Image();
+                i.src = "${basePath}/open/getVCode?" + Math.random();
+                $(i).replaceAll(this);
+            });
             $("#register").click(function () {
                 var pswd = $('#pswd').val();
                 var re_pwd = $('#re_pwd').val();
@@ -21,16 +33,21 @@
                     $('#_form').serialize(),
                     function (result) {
                         if(result && result.status != 200){
-
+                            layui.use(['layer'],function () {
+                                var layer = layui.layer;
+                                layer.msg(result.message);
+                            });
                         }else {
                             layui.use(['layer'],function () {
                                 var layer = layui.layer;
                                 layer.msg('注册成功');
-
                             });
                         }
                     }    
                 );
+            });
+            $("#login").click(function () {
+                window.location.href = "login";
             });
 
         });
@@ -44,9 +61,12 @@
             <form id="_form" action="${basePath}/u/subRegister" method="post" class="form-group">
                 <input type="text" name="nickname" id="nickname" placeholder="昵称" class="form-control"/>
                 <input type="text" name="email" id="email" placeholder="邮箱" class="form-control"/>
-                <input type="password" name="pswd" id="pswd" class="form-control"/>
-                <input type="password" name="re_pwd" id="re_pwd" class="form-control"/>
-
+                <input type="password" name="pswd" id="pswd" class="form-control" placeholder="密码"/>
+                <input type="password" name="re_pwd" id="re_pwd" class="form-control" placeholder="重复密码"/>
+                <div id="vcode" style="text-align: left;margin-left: 10px;">
+                    <input type="text" name="vcode" class="form-control" style="width: 100px;margin-left: -8px;margin-right: 8px;" placeholder="验证码"/>
+                    <img src="${basePath}/open/getVCode" />
+                </div>
                 <button type="button" class="register form-control" id="register">注册</button>
                 <button type="button" class="login form-control" id="login">登陆</button>
                 <div class="error"></div>

@@ -82,7 +82,7 @@ public class CommonController extends BaseController{
             response.setContentType("image/jpg");
 
             //生成随机字符串
-            String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
+            String verifyCode = VerifyCodeUtils.generateVerifyCode(5);
             //存入shiro回话session
             TokenManager.setValue2Session(VerifyCodeUtils.V_CODE, verifyCode.toLowerCase());
             //生成图片
