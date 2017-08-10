@@ -2,6 +2,7 @@ package com.cyh.user.controller;
 
 import com.cyh.common.controller.BaseController;
 import com.cyh.common.model.UUser;
+import com.cyh.common.utils.VerifyCodeUtils;
 import com.cyh.user.manager.UserManager;
 import com.cyh.user.service.UUserService;
 import org.apache.shiro.SecurityUtils;
@@ -74,8 +75,12 @@ public class UserLoginController extends BaseController{
 
     @RequestMapping(value = "/subRegister" , method = RequestMethod.POST)
     @ResponseBody
-    public Map<String , Object> subRegister(UUser user){
-        Map<String , Object> resultMap = new HashMap<>();
+    public Map<String , Object> subRegister(String vcode, UUser user){
+        resultMap.put("status", 400);
+        if(!VerifyCodeUtils.verifyCode(vcode)){
+            resultMap.put("message","验证码不正确");
+            return resultMap;
+        }
         String email = user.getEmail();
         if(null != uUserService.findUserByEmail(email)){
             resultMap.put("status" , 500);

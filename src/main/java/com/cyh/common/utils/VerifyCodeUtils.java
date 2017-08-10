@@ -52,6 +52,7 @@ public class VerifyCodeUtils {
     public static void clearVerifyCode(){
         TokenManager.getSession().removeAttribute(V_CODE);
     }
+
     /**
      * 对比验证码
      * @param code
@@ -146,6 +147,7 @@ public class VerifyCodeUtils {
         try {
             outputFile.createNewFile();
             FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
+
             outputImage(w, h, fileOutputStream, code);
         } catch (IOException e) {
             e.printStackTrace();

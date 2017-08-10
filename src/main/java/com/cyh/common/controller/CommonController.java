@@ -1,5 +1,6 @@
 package com.cyh.common.controller;
 
+import com.cyh.common.utils.LoggerUtils;
 import com.cyh.common.utils.VerifyCodeUtils;
 import com.cyh.core.shiro.token.manager.TokenManager;
 import com.cyh.permission.service.RoleService;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by cai on 2017/7/23.
@@ -72,14 +74,28 @@ public class CommonController extends BaseController{
      */
     @RequestMapping(value = "getVCode" , method = RequestMethod.GET)
     public void getVCode(HttpServletRequest request , HttpServletResponse response){
-        //防止输出被浏览器保存在缓存区中
-        response.setHeader("Prama", "No-cache");
-        response.setHeader("Cache-Control", "No-cache");
-        response.setDateHeader("Expires",0);
-        response.setContentType("image/jpg");
+        try {
+            //防止输出被浏览器保存在缓存区中
+            response.setHeader("Prama", "No-cache");
+            response.setHeader("Cache-Control", "No-cache");
+            response.setDateHeader("Expires",0);
+            response.setContentType("image/jpg");
 
-        String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
-        TokenManager.setValue2Session(VerifyCodeUtils.V_CODE, verifyCode);
+            //生成随机字符串
+            String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
+            //存入shiro回话session
+            TokenManager.setValue2Session(VerifyCodeUtils.V_CODE, verifyCode.toLowerCase());
+            //生成图片
+            int w = 150,h = 33;
 
+            VerifyCodeUtils.outputImage(w, h, response.getOutputStream(),verifyCode);
+        } catch (IOException e) {
+            LoggerUtils.fmtError(getClass(), e,"获取验证码异常:%s", e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "unauthorized",method = RequestMethod.GET)
+    public ModelAndView unauthorized(){
+        return new ModelAndView("common/unauthorized");
     }
 }
