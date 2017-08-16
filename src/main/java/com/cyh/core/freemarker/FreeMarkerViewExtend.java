@@ -1,5 +1,7 @@
 package com.cyh.core.freemarker;
 
+import com.cyh.common.model.UUser;
+import com.cyh.core.shiro.token.manager.TokenManager;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,10 @@ public class FreeMarkerViewExtend extends FreeMarkerView{
         String basePath = scheme + "://" + host + ":" + port + contextPath;
         model.put("basePath" , basePath);
         System.out.println("basePath: "  + basePath);
+        UUser token = TokenManager.getToken();
+        if(TokenManager.isLogin()){
+            //model.put("token", "aaaaa");
+        }
         super.exposeHelpers(model, request);
     }
 }

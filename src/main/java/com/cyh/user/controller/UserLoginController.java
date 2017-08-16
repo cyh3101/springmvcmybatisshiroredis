@@ -2,6 +2,7 @@ package com.cyh.user.controller;
 
 import com.cyh.common.controller.BaseController;
 import com.cyh.common.model.UUser;
+import com.cyh.common.utils.StringUtils;
 import com.cyh.common.utils.VerifyCodeUtils;
 import com.cyh.user.manager.UserManager;
 import com.cyh.user.service.UUserService;
@@ -10,6 +11,8 @@ import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.security.auth.login.AccountLockedException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +64,16 @@ public class UserLoginController extends BaseController{
             subject.login(token);
             resultMap.put("status" , 200);
             resultMap.put("message" , "登录成功");
+
+            SavedRequest savedRequest = WebUtils.getSavedRequest(request);
+            String url = null;
+            if(null != savedRequest){
+                url = savedRequest.getRequestUrl();
+            }
+            if(StringUtils.isBlank(url)){
+                url = request.getContextPath() + "/u/index";
+            }
+            resultMap.put("back_url", url);
         } catch (UnknownAccountException e){
             resultMap.put("status" , 500);
             resultMap.put("message" , "账号或密码错误");
@@ -97,8 +111,12 @@ public class UserLoginController extends BaseController{
         System.out.println("注册成功");
         resultMap.put("status" , 200);
         resultMap.put("message" , "注册成功");
+
         return resultMap;
 
         //home branch
+
+
+
     }
 }
