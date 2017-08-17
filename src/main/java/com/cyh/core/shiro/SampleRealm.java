@@ -1,6 +1,7 @@
 package com.cyh.core.shiro;
 
 import com.cyh.common.model.UUser;
+import com.cyh.core.shiro.token.manager.ShiroToken;
 import com.cyh.permission.service.PermissionService;
 import com.cyh.permission.service.RoleService;
 import com.cyh.user.service.UUserService;
@@ -39,8 +40,8 @@ public class SampleRealm extends AuthorizingRealm{
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
-        UUser user = uUserService.login((String)token.getPrincipal() , new String(token.getPassword()));
+        ShiroToken token = (ShiroToken)authenticationToken;
+        UUser user = uUserService.login((String)token.getEmail() , new String(token.getPassword()));
         System.out.println("=================info===========================");
         if(null == user){
             throw new AccountException("账号或密码错误");
