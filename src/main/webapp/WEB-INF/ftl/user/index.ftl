@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <#assign base=request.contextPath/>
+<#include "../config/top.ftl">
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
@@ -7,7 +8,9 @@
     <link rel="stylesheet" href="${basePath}/css/layui.css"/>
 </head>
 <body>
-    <div class="container">
+    <@top 1/>
+    <div class="container" style="min-height:300px;margin-top: 60px;">
+
         <div class="row">
             <div class="col-md-10">
                 <h2>个人资料</h2>
@@ -15,19 +18,19 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>昵称</th>
-                        <td></td>
+                        <td>${token.nickname?default('未设置')}</td>
                     </tr>
                     <tr>
                         <th>Email/账号</th>
-                        <td></td>
+                        <td>${token.email}</td>
                     </tr>
                     <tr>
                         <th>创建时间</th>
-                        <td></td>
+                        <td>${token.createTime?string('yyyy-MM-dd HH:mm')}</td>
                     </tr>
                     <tr>
                         <th>最后登录时间</th>
-                        <td></td>
+                        <td>${token.lastLoginTime?string('yyyy-MM-dd HH:mm')}</td>
                     </tr>
                 </table>
             </div>

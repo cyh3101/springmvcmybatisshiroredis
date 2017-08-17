@@ -4,6 +4,7 @@ import com.cyh.common.controller.BaseController;
 import com.cyh.common.model.UUser;
 import com.cyh.common.utils.StringUtils;
 import com.cyh.common.utils.VerifyCodeUtils;
+import com.cyh.core.shiro.token.manager.TokenManager;
 import com.cyh.user.manager.UserManager;
 import com.cyh.user.service.UUserService;
 import org.apache.shiro.SecurityUtils;
@@ -56,12 +57,13 @@ public class UserLoginController extends BaseController{
         Map<String , Object> resultMap = new HashMap<String , Object>();
         try {
             user = UserManager.getMD5(user);
-            UsernamePasswordToken token = new UsernamePasswordToken(user.getEmail() , user.getPswd());
-
-            token.setRememberMe(rememberMe);
+            TokenManager.login(user, rememberMe);
+//            UsernamePasswordToken token = new UsernamePasswordToken(user.getEmail() , user.getPswd());
+//
+//            token.setRememberMe(rememberMe);
             System.out.println("user : " + user.toString());
-            Subject subject = SecurityUtils.getSubject();
-            subject.login(token);
+//            Subject subject = SecurityUtils.getSubject();
+//            subject.login(token);
             resultMap.put("status" , 200);
             resultMap.put("message" , "登录成功");
 
@@ -115,8 +117,5 @@ public class UserLoginController extends BaseController{
         return resultMap;
 
         //home branch
-
-
-
     }
 }

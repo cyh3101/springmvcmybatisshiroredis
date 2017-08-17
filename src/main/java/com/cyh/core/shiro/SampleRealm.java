@@ -50,7 +50,7 @@ public class SampleRealm extends AuthorizingRealm{
             user.setLastLoginTime(new Date());
             uUserService.updateByPrimaryKeySelective(user);
         }
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user.getEmail() , user.getPswd() , getName());
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user , user.getPswd() , getName());
         return info;
     }
 }

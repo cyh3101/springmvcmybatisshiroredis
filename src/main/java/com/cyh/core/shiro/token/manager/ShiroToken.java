@@ -11,6 +11,7 @@ public class ShiroToken extends UsernamePasswordToken implements Serializable{
     private String email;
     private String pswd;
     public ShiroToken(String email, String pswd){
+        super(email, pswd);
         this.email = email;
         this.pswd = pswd;
     }

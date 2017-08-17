@@ -58,17 +58,17 @@
     <div class="container">
         <div class="form-group">
             <h1>Register</h1>
-            <form id="_form" action="${basePath}/u/subRegister" method="post" class="form-group">
-                <input type="text" name="nickname" id="nickname" placeholder="昵称" class="form-control"/>
-                <input type="text" name="email" id="email" placeholder="邮箱" class="form-control"/>
-                <input type="password" name="pswd" id="pswd" class="form-control" placeholder="密码"/>
-                <input type="password" name="re_pwd" id="re_pwd" class="form-control" placeholder="重复密码"/>
+            <form id="_form" action="${basePath}/u/subRegister" method="post" >
+                <input type="text" name="nickname" id="nickname" placeholder="昵称" />
+                <input type="text" name="email" id="email" placeholder="邮箱" />
+                <input type="password" name="pswd" id="pswd"  placeholder="密码"/>
+                <input type="password" name="re_pwd" id="re_pwd"  placeholder="重复密码"/>
                 <div id="vcode" style="text-align: left;margin-left: 10px;">
-                    <input type="text" name="vcode" class="form-control" style="width: 100px;margin-left: -8px;margin-right: 8px;" placeholder="验证码"/>
+                    <input type="text" name="vcode"  style="width: 100px;margin-left: -8px;margin-right: 8px;" placeholder="验证码"/>
                     <img src="${basePath}/open/getVCode" />
                 </div>
-                <button type="button" class="register form-control" id="register">注册</button>
-                <button type="button" class="login form-control" id="login">登陆</button>
+                <button type="button" class="register" id="register">注册</button>
+                <button type="button" class="login" id="login">登陆</button>
                 <div class="error"></div>
             </form>
         </div>

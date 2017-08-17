@@ -20,9 +20,10 @@ public class FreeMarkerViewExtend extends FreeMarkerView{
         String basePath = scheme + "://" + host + ":" + port + contextPath;
         model.put("basePath" , basePath);
         System.out.println("basePath: "  + basePath);
-        UUser token = TokenManager.getToken();
+
         if(TokenManager.isLogin()){
-            //model.put("token", "aaaaa");
+            UUser token = TokenManager.getToken();
+            model.put("token", token);
         }
         super.exposeHelpers(model, request);
     }

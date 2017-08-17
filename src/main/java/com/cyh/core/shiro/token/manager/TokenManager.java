@@ -1,20 +1,22 @@
 package com.cyh.core.shiro.token.manager;
 
 import com.cyh.common.model.UUser;
+import com.cyh.user.service.UUserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by cyh on 2017/7/25.
  */
 public class TokenManager {
-
     /**
      * 获取当前登录用户的token
      * @return
      */
     public static UUser getToken(){
-        return (UUser)SecurityUtils.getSubject().getPrincipal();
+        return (UUser) SecurityUtils.getSubject().getPrincipal();
     }
 
     /**

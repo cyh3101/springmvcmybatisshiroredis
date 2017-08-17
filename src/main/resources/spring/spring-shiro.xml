@@ -29,7 +29,6 @@
     <!--realm-->
     <bean id="myRealm" class="com.cyh.core.shiro.SampleRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
-
     </bean>
     <!--密码验证-->
     <bean id="credentialsMatcher" class="com.cyh.core.shiro.MyCredentialsMatcher">
@@ -40,11 +39,7 @@
         <property name="shiroCacheManager" ref="jedisShiroCacheManager"/>
     </bean>
     <bean id="jedisShiroCacheManager" class="com.cyh.core.shiro.cache.impl.JedisShiroCacheManager">
-
     </bean>
-
-
-
 
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
         <property name="cacheManager" ref="ehCacheMananger"/>
