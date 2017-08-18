@@ -6,9 +6,9 @@
                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     个人中心<span class="caret"></span> </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">个人资料</a> </li>
-                        <li><a href="#">资料修改</a> </li>
-                        <li><a href="#">密码修改</a> </li>
+                        <li><a href="${basePath}/u/index">个人资料</a> </li>
+                        <li><a href="${basePath}/u/updateSelf">资料修改</a> </li>
+                        <li><a href="${basePath}/u/updatePswd">密码修改</a> </li>
                         <li><a href="#">我的权限</a> </li>
                     </ul>
                 </li>
