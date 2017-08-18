@@ -78,7 +78,7 @@ public class UserCoreController extends BaseController{
             return resultMap;
         }else {
             user.setPswd(newPswd);
-            //md5密码
+            //md5加密密码
             user = UserManager.getMD5(user);
             //修改密码
             uUserService.updateByPrimaryKeySelective(user);
