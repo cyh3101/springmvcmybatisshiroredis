@@ -40,7 +40,7 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport{
         }
     }
 
-    public List<T> findList(String sqlId , Map<String ,Object> params ,
+    public List findList(String sqlId , Map<String ,Object> params ,
                             Integer pageNo , Integer pageSize){
         pageNo = (null == pageNo) ? 1 :pageNo;
         pageSize = (null == pageSize) ? 10 :pageSize;
@@ -50,11 +50,11 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport{
         params.put("page_sql" , page_sql);
         sqlId = String.format("%s.%s" , NAMESPACE , page_sql);
 
-        List<T> resultList = this.getSqlSession().selectList(sqlId , params);
+        List resultList = this.getSqlSession().selectList(sqlId , params);
         return resultList;
     }
 
-    public List<T> findList(Map<String , Object> params , Integer pageNo , Integer pageSize){
+    public List findList(Map<String , Object> params , Integer pageNo , Integer pageSize){
         return findList(DEFAULT_SQL_ID , params , pageNo , pageSize);
     }
 

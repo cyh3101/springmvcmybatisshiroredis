@@ -2,6 +2,8 @@ package com.cyh.user.service.impl;
 
 import com.cyh.common.dao.UUserMapper;
 import com.cyh.common.model.UUser;
+import com.cyh.core.mybatis.page.BaseMybatisDao;
+import com.cyh.core.mybatis.page.Pagination;
 import com.cyh.user.service.UUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,6 +66,12 @@ public class UUserServiceImpl implements UUserService{
 
     @Override
     public Map<String, Object> addRole2User(Long userId, String ids) {
+        return null;
+    }
+
+    @Override
+    public Pagination<UUser> findByPage(Map<String, Object> resultMap, Integer pageNo, Integer pageSize) {
+        //return super.findPage(resultMap, pageNo, pageSize);
         return null;
     }
 }

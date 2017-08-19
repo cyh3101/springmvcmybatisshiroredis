@@ -1,6 +1,7 @@
 package com.cyh.user.service;
 
 import com.cyh.common.model.UUser;
+import com.cyh.core.mybatis.page.Pagination;
 
 import java.util.Map;
 
@@ -25,5 +26,7 @@ public interface UUserService {
     UUser findUserByEmail(String email);
 
     Map<String , Object> addRole2User(Long userId , String ids);
+
+    Pagination<UUser> findByPage(Map<String, Object> resultMap, Integer pageNo, Integer pageSize);
 
 }

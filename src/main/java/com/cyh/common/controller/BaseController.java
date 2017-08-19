@@ -18,7 +18,7 @@ import java.util.*;
  */
 public class BaseController {
     protected int pageNo = 1;
-    private static int pageSize = 10;
+    public static int pageSize = 10;
     protected final static Logger logger = Logger.getLogger(BaseController.class);
 
     protected Map<String , Object> resultMap = new LinkedHashMap<>();

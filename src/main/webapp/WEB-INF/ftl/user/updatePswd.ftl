@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <#include "../config/top.ftl">
+<#include "../config/left.ftl">
 <html>
     <head>
         <link rel="stylesheet" href="${basePath}/css/bootstrap.min.css"/>
@@ -10,11 +11,12 @@
     </head>
     <body>
         <@top/>
-        <div class="container">
-            <h2>密码修改</h2>
-            <hr>
+        <div class="container" style="min-height:300px;margin-top: 60px;">
             <div class="row">
+                <@user/>
                 <div class="col-md-10">
+                    <h2>密码修改</h2>
+                    <hr>
                     <form id="formId" action="${basePath}/u/updatePswd" method="post">
                         <div class="form-group">
                             <label>原密码</label>
