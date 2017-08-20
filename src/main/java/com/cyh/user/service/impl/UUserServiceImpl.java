@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by cai on 2017/7/9.
  */
 @Service
-public class UUserServiceImpl implements UUserService{
+public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUserService{
     @Autowired
     private UUserMapper userMapper;
     @Override
@@ -71,7 +71,6 @@ public class UUserServiceImpl implements UUserService{
 
     @Override
     public Pagination<UUser> findByPage(Map<String, Object> resultMap, Integer pageNo, Integer pageSize) {
-        //return super.findPage(resultMap, pageNo, pageSize);
-        return null;
+        return super.findPage(resultMap, pageNo, pageSize);
     }
 }

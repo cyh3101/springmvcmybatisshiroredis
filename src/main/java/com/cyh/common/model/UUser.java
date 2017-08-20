@@ -18,6 +18,18 @@ public class UUser implements Serializable{
 
     private Long status;
 
+    public UUser(){};
+
+    public UUser(UUser user) {
+        this.id = user.id;
+        this.nickname = user.nickname;
+        this.email = user.email;
+        this.pswd = user.pswd;
+        this.createTime = user.createTime;
+        this.lastLoginTime = user.lastLoginTime;
+        this.status = user.status;
+    }
+
     public Long getId() {
         return id;
     }

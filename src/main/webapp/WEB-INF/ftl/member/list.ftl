@@ -47,8 +47,8 @@
                                         <td>${(it.status==1)?string('有效','无效')}</td>
                                         <td>${it.createTime?string('yyyy-MM-dd HH:mm')}</td>
                                         <td>${it.lastLoginTime?string('yyyy-MM-dd HH:mm')}</td>
-                                        <td>${(it.status==1)?string('<i class="glyphicon glyphicon-eye-close"></i>&nbas;','<i class="glyphicon glyphicon-eye-close"></i>')}
-                                            <a href="javascript:void(0);">${(id.status==1)?string('禁止登录','允许登录')}</a>
+                                        <td>${(it.status==1)?string('<i class="glyphicon glyphicon-eye-close"></i>&nbsp;','<i class="glyphicon glyphicon-eye-close"></i>')}
+                                            <a href="javascript:void(0);">${(it.status==1)?string('禁止登录','允许登录')}</a>
                                             <a href="javascript:void(0);">删除</a>
                                         </td>
                                     </tr>
