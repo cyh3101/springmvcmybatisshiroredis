@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class CustomSessionManager {
 
-    public static final String SESSION_STATUS = "";
+    public static final String SESSION_STATUS = "cyh_online_status";
     ShiroSessionRepository shiroSessionRepository;
     CustomShiroSessionDAO customShiroSessionDAO;
 
