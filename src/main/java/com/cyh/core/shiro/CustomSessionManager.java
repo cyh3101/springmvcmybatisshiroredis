@@ -1,6 +1,7 @@
 package com.cyh.core.shiro;
 
 import com.cyh.common.model.UUser;
+import com.cyh.core.shiro.session.SessionStatus;
 import com.cyh.core.shiro.session.ShiroSessionRepository;
 import com.cyh.user.bo.UserOnlineBo;
 import org.apache.shiro.session.Session;
@@ -53,7 +54,11 @@ public class CustomSessionManager {
                 userBo.setLastAccessTime(session.getLastAccessTime());
                 userBo.setHost(session.getHost());
                 userBo.setTimeout(session.getTimeout());
-                boolean status = (boolean)session.getAttribute(SESSION_STATUS);
+                SessionStatus onlineStatus = (SessionStatus)session.getAttribute(SESSION_STATUS);
+                boolean status = Boolean.TRUE;
+                if(onlineStatus != null) {
+                    status = onlineStatus.getOnlineStatus();
+                }
                 userBo.setSessionStatus(status);
                 return userBo;
             }
