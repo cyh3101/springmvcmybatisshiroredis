@@ -24,7 +24,6 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="cacheManager" ref="customCacheManager"/>
         <property name="realm" ref="myRealm"/>
-
      </bean>
     <!--realm-->
     <bean id="myRealm" class="com.cyh.core.shiro.SampleRealm">
