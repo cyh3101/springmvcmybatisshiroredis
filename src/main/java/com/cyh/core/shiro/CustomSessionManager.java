@@ -1,6 +1,7 @@
 package com.cyh.core.shiro;
 
 import com.cyh.common.model.UUser;
+import com.cyh.core.CustomCachManager;
 import com.cyh.core.shiro.session.SessionStatus;
 import com.cyh.core.shiro.session.ShiroSessionRepository;
 import com.cyh.user.bo.UserOnlineBo;
@@ -17,9 +18,17 @@ import java.util.List;
  */
 public class CustomSessionManager {
 
-    public static final String SESSION_STATUS = "cyh_online_status";
+    public static final String SESSION_STATUS = "session_online_status";
     ShiroSessionRepository shiroSessionRepository;
     CustomShiroSessionDAO customShiroSessionDAO;
+
+    public void setShiroSessionRepository(ShiroSessionRepository shiroSessionRepository){
+        this.shiroSessionRepository = shiroSessionRepository;
+    }
+
+    public void setCustomShiroSessionDAO(CustomShiroSessionDAO customShiroSessionDAO){
+        this.customShiroSessionDAO = customShiroSessionDAO;
+    }
 
     /**
      * 得到所有的有效session用户
@@ -28,13 +37,16 @@ public class CustomSessionManager {
     public List<UserOnlineBo> getAllUser(){
         Collection<Session> sessions = customShiroSessionDAO.getActiveSessions();
         List<UserOnlineBo> list = new ArrayList<>();
-        for (Session session:sessions
-             ) {
-            UserOnlineBo bo = getSessionBo(session);
-            if(null != bo){
-                list.add(bo);
+        if(sessions != null){
+            for (Session session:sessions
+                    ) {
+                UserOnlineBo bo = getSessionBo(session);
+                if(null != bo){
+                    list.add(bo);
+                }
             }
         }
+
         return list;
     }
 

@@ -3,6 +3,8 @@ package com.cyh.user.controller;
 import com.cyh.common.controller.BaseController;
 import com.cyh.common.model.UUser;
 import com.cyh.core.mybatis.page.Pagination;
+import com.cyh.core.shiro.CustomSessionManager;
+import com.cyh.core.shiro.cache.impl.CustomCacheManager;
 import com.cyh.user.bo.UserOnlineBo;
 import com.cyh.user.service.UUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import java.util.List;
 @RequestMapping(value = "/member")
 public class MemberController extends BaseController{
     @Autowired
+    CustomSessionManager customSessionManager;
+    @Autowired
     private UUserService uUserService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -33,7 +37,7 @@ public class MemberController extends BaseController{
 
     @RequestMapping(value = "/online", method = RequestMethod.GET)
     public ModelAndView online(){
-        List<UserOnlineBo> onlineList = null;
-        return new ModelAndView("member/online");
+        List<UserOnlineBo> onlineList = customSessionManager.getAllUser();
+        return new ModelAndView("member/online", "list", onlineList);
     }
 }

@@ -47,4 +47,27 @@
         <property name="configLocation" value="classpath:ehcache.xml"/>
         <property name="shared" value="true"/>
     </bean>
+
+    <!--sessionManager-->
+    <bean id="customSessionManager" class="com.cyh.core.shiro.CustomSessionManager">
+        <property name="customShiroSessionDAO" ref="customShiroSessionDAO"/>
+        <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
+    </bean>
+
+    <!--session访问对象-->
+    <bean id="customShiroSessionDAO" class="com.cyh.core.shiro.CustomShiroSessionDAO">
+        <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+    </bean>
+
+    <!--会话session ID生成器-->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+
+    <!--session创建、查询、删除所使用的Jedis仓库-->
+    <bean id="jedisShiroSessionRepository" class="com.cyh.core.shiro.cache.JedisShiroSessionRepository">
+        <property name="jedisManager" ref="jedisManager"/>
+    </bean>
+
+    <!--jedis管理器-->
+    <bean id="jedisManager" class="com.cyh.core.shiro.cache.JedisManager"></bean>
 </beans>
