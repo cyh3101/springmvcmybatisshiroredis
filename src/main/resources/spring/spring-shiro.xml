@@ -69,5 +69,7 @@
     </bean>
 
     <!--jedis管理器-->
-    <bean id="jedisManager" class="com.cyh.core.shiro.cache.JedisManager"></bean>
+    <bean id="jedisManager" class="com.cyh.core.shiro.cache.JedisManager">
+        <property name="jedisPool" ref="jedisPool"/>
+    </bean>
 </beans>

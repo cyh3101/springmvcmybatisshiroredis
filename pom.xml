@@ -156,12 +156,21 @@
       <artifactId>ehcache-core</artifactId>
       <version>2.5.3</version>
     </dependency>
+    <!--cache end-->
+    <!--jedis start-->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.1.0</version>
+    </dependency>
+    <!--jedis end-->
+    <!--junit start-->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
     </dependency>
-    <!--cache end-->
+    <!--junit end-->
 
     <!--hamcrest start-->
     <dependency>
