@@ -1,9 +1,15 @@
 package com.cyh.core.shiro.cache;
 
+import com.cyh.common.utils.SerializeUtil;
 import com.cyh.common.utils.StringUtils;
+import org.apache.shiro.session.Session;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisConnectionException;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by cai on 2017/8/21.
@@ -103,5 +109,38 @@ public class JedisManager {
             returnResource(jedis, isBroken);
         }
         return result;
+    }
+
+    /**
+     * 得到所有的sessions
+     * @param dbIndex
+     * @param redisShiroSession
+     * @return
+     */
+    public Collection<Session> getAllSession(int dbIndex, String redisShiroSession){
+        Jedis jedis = null;
+        boolean isBroken = false;
+        Set<Session> sessions = new HashSet<>();
+        try {
+            jedis = getJedis();
+            jedis.select(dbIndex);
+
+            Set<byte[]> byteKeys = jedis.keys((JedisShiroSessionRepository.REDIS_SHIRO_ALL).getBytes());
+            if(byteKeys != null && byteKeys.size() > 0){
+                for (byte[] bs:byteKeys
+                     ) {
+                    Session obj = SerializeUtil.deserialize(jedis.get(bs), Session.class);
+                    if(obj instanceof Session){
+                        sessions.add(obj);
+                    }
+                }
+            }
+        } catch (Exception e){
+            isBroken = true;
+            throw e;
+        } finally {
+            returnResource(jedis,isBroken);
+        }
+        return sessions;
     }
 }

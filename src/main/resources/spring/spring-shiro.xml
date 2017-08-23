@@ -23,6 +23,7 @@
     <!--安全管理器-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="cacheManager" ref="customCacheManager"/>
+        <property name="sessionManager" ref="sessionManager"/>
         <property name="realm" ref="myRealm"/>
      </bean>
     <!--realm-->
@@ -48,9 +49,25 @@
         <property name="shared" value="true"/>
     </bean>
 
-    <!--sessionManager-->
+    <!--手动操作 sessionManager-->
     <bean id="customSessionManager" class="com.cyh.core.shiro.CustomSessionManager">
         <property name="customShiroSessionDAO" ref="customShiroSessionDAO"/>
+        <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
+    </bean>
+
+
+    <!--sessionManager-->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionDAO" ref="customShiroSessionDAO"/>
+        <property name="sessionListeners">
+            <list>
+                <ref bean="customSessionListener"/>
+            </list>
+        </property>
+    </bean>
+
+    <!--customSessionListener-->
+    <bean id="customSessionListener" class="com.cyh.core.shiro.listenter.CustomSessionListener">
         <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
     </bean>
 
