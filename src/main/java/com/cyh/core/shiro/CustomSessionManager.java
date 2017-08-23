@@ -62,6 +62,7 @@ public class CustomSessionManager {
             obj = spc.getPrimaryPrincipal();
             if(obj != null && obj instanceof UUser){
                 UserOnlineBo userBo = new UserOnlineBo((UUser) obj);
+                userBo.setSessionId(session.getId().toString());
                 userBo.setCreateTime(session.getStartTimestamp());
                 userBo.setLastAccessTime(session.getLastAccessTime());
                 userBo.setHost(session.getHost());
