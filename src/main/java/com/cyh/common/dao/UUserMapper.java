@@ -38,4 +38,8 @@ public interface UUserMapper {
     int updateByPrimaryKeySelective(UUser record);
 
     int updateByPrimaryKey(UUser record);
+
+    UUser findAll();
+
+    Integer findCount();
 }

@@ -46,12 +46,13 @@ public class Pagination<T> extends SimplePage implements Paginable , Serializabl
             }
             pageHtml.append("<li><a href='javascript:;' onclick='_submitform(" + (this.getPageNo() - 1) + ")'>上一页</a></li>");
         }
-        for (int i = (this.getPageNo() - 2 <= 0 ? 1 : this.getPageNo()),no = 1;
+        for (int i = (this.getPageNo() - 2 <= 0 ? 1 : this.getPageNo() - 2),no = 1;
              i <= this.getTotalPage() && no < 6 ; i++,no++){
             if(this.getPageNo() == i){
-                pageHtml.append("<li><a href='javascript:;' class='active'>" + i + "</a></li>");
+                pageHtml.append("<li class='active'><a href='javascript:;'>" + i + "</a></li>");
+            }else {
+                pageHtml.append("<li><a href='javascript:;' onclick='_submitform(" + i + ")'>" + i + "</a></li>");
             }
-            pageHtml.append("<li><a href='javascript:;' onclick='_submitform(" + i + ")'>" + i + "</a></li>");
         }
         if(this.getPageNo() < this.getTotalPage()){
             pageHtml.append("<li><a href='javascript:;' onclick='_submitform(" + (this.getPageNo() + 1) + ")'>下一页</a></li>");

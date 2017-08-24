@@ -84,16 +84,18 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport{
         pageNo = pageNo == null ? 1 : pageNo;
         pageSize = pageSize == null ? 10 : pageSize;
         Pagination page = new Pagination();
-        page.setPageNo(pageNo);
-        page.setPageSize(pageSize);
+        page.setPageNo(pageNo);//为page设置页码
+        page.setPageSize(pageSize);//为page设置每页大小
+
 
         Configuration config = this.getSqlSession().getConfiguration();
         int offset = (page.getPageNo() - 1) * page.getPageSize();
         String page_sql = String.format("limit %s , %s" , offset , pageSize);
-        params.put("page_sql" , page_sql);
+        params.put("page_sql" , page_sql);//设置page_sql参数
 
-        BoundSql boundSql = config.getMappedStatement(sqlId).getBoundSql(params);
-        String sqlCode = boundSql.getSql();
+        sqlId = String.format("%s.%s", NAMESPACE, sqlId);
+        BoundSql boundSql = config.getMappedStatement(sqlId).getBoundSql(params);//参数绑定
+        String sqlCode = boundSql.getSql();//得到查询一页数据的sql语句
 
         String countCode = "";
         BoundSql countSql = null;
@@ -113,13 +115,18 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport{
             page.setList(resultList);
 
             //处理count
-            PreparedStatement ps = getPreparedStatment4Count(countCode,countSql.getParameterMappings(),
-                    params,conn);
-            ps.execute();
-            ResultSet resultSet= ps.getResultSet();
-            while(resultSet.next()){
-                page.setTotalCount(resultSet.getInt(1));
+            Integer count = this.getSqlSession().selectOne(countId, params);
+            if(count != null){
+                page.setTotalCount(count);
             }
+            //处理count
+//            PreparedStatement ps = getPreparedStatment4Count(countCode,countSql.getParameterMappings(),
+//                    params,conn);
+//            ps.execute();
+//            ResultSet resultSet= ps.getResultSet();
+//            while(resultSet.next()){
+//                page.setTotalCount(resultSet.getInt(1));
+//            }
         } catch (Exception e){
             LoggerUtils.fmtError(getClass(), e, "jdbc.error.code.findByPageBySqlId");
         } finally {
