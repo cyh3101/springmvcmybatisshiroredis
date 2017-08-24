@@ -59,6 +59,9 @@
                                 </tr>
                             </#if>
                         </table>
+                        <div class="pagination pull-right">
+                            ${page.pageHtml}
+                        </div>
                     </form>
 
 

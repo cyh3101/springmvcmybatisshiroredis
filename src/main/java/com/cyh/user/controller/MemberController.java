@@ -30,7 +30,7 @@ public class MemberController extends BaseController{
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView list(ModelMap map, Integer pageNo, String findContent){
         map.put("findContent",findContent);
-        Pagination<UUser> page = uUserService.findByPage(map, pageNo, pageSize);
+        Pagination<UUser> page = uUserService.findByPage(map, pageNo, 1);
         map.put("page", page);
         return new ModelAndView("member/list");
     }

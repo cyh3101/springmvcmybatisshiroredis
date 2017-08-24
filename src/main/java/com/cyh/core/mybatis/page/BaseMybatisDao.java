@@ -1,5 +1,6 @@
 package com.cyh.core.mybatis.page;
 
+import com.cyh.common.utils.LoggerUtils;
 import com.cyh.common.utils.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -120,6 +121,8 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport{
                 page.setTotalCount(resultSet.getInt(1));
             }
         } catch (Exception e){
+            LoggerUtils.fmtError(getClass(), e, "jdbc.error.code.findByPageBySqlId");
+        } finally {
 
         }
         return page;
