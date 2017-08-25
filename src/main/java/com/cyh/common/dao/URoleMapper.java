@@ -36,4 +36,8 @@ public interface URoleMapper {
     List<URole> findNowAllPermission(Map<String , Object> map);
 
     void initData();
+
+    List<URole> findAll();
+
+    int findCount();
 }
