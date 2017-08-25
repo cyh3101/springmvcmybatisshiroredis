@@ -19,7 +19,7 @@
     <div class="container" style="min-height:300px;margin-top: 60px;">
 
         <div class="row">
-            <@user/>
+            <@user 1/>
             <div class="col-md-10">
                 <h2>个人资料</h2>
                 <hr>

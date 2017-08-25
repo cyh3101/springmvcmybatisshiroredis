@@ -17,7 +17,7 @@
         <@top/>
         <div class="container" style="min-height:300px;margin-top: 60px;">
             <div class="row">
-                <@user/>
+                <@user 1/>
                 <div class="col-md-10">
                     <h2>密码修改</h2>
                     <hr>

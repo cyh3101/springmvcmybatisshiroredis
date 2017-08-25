@@ -69,10 +69,11 @@
   </sql>
   <sql id="where_sql">
     <where>
-      <if test="findCount != null and findCount !=''">
-        AND
-        LOWER(name) LIKE LOWER(concat("%",#{findCount,jdbcType=VARCHAR},"%")) OR
-        LOWER(type) LIKE LOWER(concat("%",#{findCount,jdbcType=VARCHAR}"%"))
+      <if test="findContent != null and findContent !=''">
+        AND(
+        LOWER(name) LIKE LOWER(concat("%",#{findContent,jdbcType=VARCHAR},"%")) OR
+        LOWER(type) LIKE LOWER(concat("%",#{findContent,jdbcType=VARCHAR},"%"))
+        )
       </if>
     </where>
   </sql>

@@ -8,15 +8,16 @@
         <link rel="shortcut icon" href="${basePath}/images/cai.ico"/>
         <link rel="stylesheet" href="${basePath}/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="${basePath}/css/layui.css"/>
+        <#--<link rel="stylesheet" href="${basePath}/css/common/base.css"/>-->
         <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
-    <body>
+    <body data-target="#one" data-spy="scroll">
         <@top/>
         <div class="container" style="min-height: 300px;margin-top: 60px;">
             <div class="row">
-                <@memeber/>
+                <@memeber 1/>
                 <div class="col-md-10">
                     <h2>用户列表</h2>
                     <hr>

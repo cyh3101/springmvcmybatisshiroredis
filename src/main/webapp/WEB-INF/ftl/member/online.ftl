@@ -17,7 +17,7 @@
         <@top/>
         <div class="container" style="min-height: 300px;margin-top: 60px;">
             <div class="row">
-                <@memeber/>
+                <@memeber 2/>
                 <div class="col-md-10">
                     <h2>当前在线用户</h2>
                     <table class="table table-bordered">
