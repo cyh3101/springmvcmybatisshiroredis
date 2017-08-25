@@ -3,7 +3,10 @@
 <#include "../config/left.ftl">
 <html>
     <head>
-        <title></title>
+        <meta charset="UTF-8">
+        <title>在线用户-用户中心</title>
+        <link rel="icon" href="${basePath}/images/cai.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="${basePath}/images/cai.ico"/>
         <link rel="stylesheet" href="${basePath}/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="${basePath}/css/layui.css"/>
         <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -12,7 +15,7 @@
     </head>
     <body>
         <@top/>
-        <div class="container">
+        <div class="container" style="min-height: 300px;margin-top: 60px;">
             <div class="row">
                 <@memeber/>
                 <div class="col-md-10">

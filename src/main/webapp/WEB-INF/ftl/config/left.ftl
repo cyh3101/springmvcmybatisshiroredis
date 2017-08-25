@@ -23,7 +23,7 @@
         <ul class="nav nav-list nav-stacked nav-tabs dropdown">
             <li><a href="${basePath}/member/list">
                 <i class="glyphicon glyphicon-chevron-right"></i> 用户列表</a> </li>
-            <li><a href="${basePath}/memeber/online">
+            <li><a href="${basePath}/member/online">
                 <i class="glyphicon glyphicon-chevron-right"></i> 在线用户</a> </li>
         </ul>
     </div>

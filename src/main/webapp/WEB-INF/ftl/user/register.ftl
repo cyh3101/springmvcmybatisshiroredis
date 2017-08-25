@@ -1,6 +1,9 @@
 <html>
 <head>
-    <title>register</title>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="icon" href="${basePath}/images/cai.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="${basePath}/images/cai.ico"/>
     <link rel="stylesheet" href="${basePath}/css/layui.css"/>
     <link rel="stylesheet" href="${basePath}/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${basePath}/css/login/supersized.css"/>

@@ -16,7 +16,7 @@
                     用户中心<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="${basePath}/member/list">用户列表</a> </li>
-                        <li><a href="${basePath}/member/online">用户在线</a> </li>
+                        <li><a href="${basePath}/member/online">在线用户</a> </li>
                     </ul>
                 </li>
                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">

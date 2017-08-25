@@ -47,6 +47,7 @@
     <mvc:resources mapping="/css/**" location="/css/"/>
     <mvc:resources mapping="/js/**" location="/js/"/>
     <mvc:resources mapping="/slides/**" location="/slides/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
 
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">

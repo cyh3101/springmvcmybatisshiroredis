@@ -3,7 +3,9 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-
+    <title>登录</title>
+    <link rel="icon" href="${basePath}/images/cai.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="${basePath}/images/cai.ico"/>
     <link rel="stylesheet" href="${basePath}/css/login/reset.css"/>
     <link rel="stylesheet" href="${basePath}/css/login/supersized.css"/>
     <link rel="stylesheet" href="${basePath}/css/login/style.css"/>
