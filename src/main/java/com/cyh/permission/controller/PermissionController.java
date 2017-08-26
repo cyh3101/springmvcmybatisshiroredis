@@ -6,6 +6,7 @@ import com.cyh.core.mybatis.page.Pagination;
 import com.cyh.permission.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +23,7 @@ public class PermissionController extends BaseController{
     private PermissionService permissionService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView index(Map<String, Object> map, String findContent){
+    public ModelAndView index(ModelMap map, String findContent, Integer pageNo){
         map.put("findContent", findContent);
         Pagination<UPermission> page = permissionService.findPage(map, pageNo, pageSize);
         return new ModelAndView("permission/index", "page", page);

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Map;
+
 /**
  * Created by cyh3101 on 2017/8/19.
  */
@@ -26,5 +28,4 @@ public class RoleController extends BaseController{
         Pagination<URole> page = roleService.findPage(map, pageNo, pageSize);
         return new ModelAndView("role/index", "page", page);
     }
-
 }

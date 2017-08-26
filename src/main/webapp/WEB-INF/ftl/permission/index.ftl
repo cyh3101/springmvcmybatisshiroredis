@@ -25,7 +25,7 @@
             <div class="col-md-10">
                 <h2>权限列表</h2>
                 <hr>
-                <form id="_formId" class="form-inline">
+                <form id="formId" class="form-inline">
                     <div class="form-group">
                         <input type="text" name="findContent" id="findContent"
                                placeholder="输入权限名称" class="form-control" width="300"/>

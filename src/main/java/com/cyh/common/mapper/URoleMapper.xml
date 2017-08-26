@@ -70,7 +70,7 @@
   <sql id="where_sql">
     <where>
       <if test="findContent != null and findContent !=''">
-        AND(
+        AND (
         LOWER(name) LIKE LOWER(concat("%",#{findContent,jdbcType=VARCHAR},"%")) OR
         LOWER(type) LIKE LOWER(concat("%",#{findContent,jdbcType=VARCHAR},"%"))
         )

@@ -19,11 +19,11 @@
             <div class="row">
                 <@role 1/>
                 <div class="col-md-10">
-                    <h2>权限管理</h2>
+                    <h2>角色列表</h2>
                     <hr>
-                    <form id="_formId" class="form-inline">
+                    <form id="formId" class="form-inline">
                         <div class="form-group">
-                            <input type="text" class="form-control" width="300" id="findCount" name="findCount"
+                            <input type="text" class="form-control" width="300" id="findContent" name="findContent"
                                    placeholder="请输入角色名称/角色类型"/>
                         </div>
                         <span>

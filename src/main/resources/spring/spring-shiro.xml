@@ -5,7 +5,7 @@
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
     <!--定义shirofilter factory-->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-        <property name="loginUrl" value="u/login"/>
+        <property name="loginUrl" value="/u/login"/>
         <property name="securityManager" ref="securityManager"/>
         <property name="filters">
             <map>
