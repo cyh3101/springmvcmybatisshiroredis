@@ -4,8 +4,8 @@
 <html>
     <head>
         <title>用户列表-用户中心</title>
-        <link rel="icon" href="${basePath}/images/cai.ico" type="image/x-icon"/>
-        <link rel="shortcut icon" href="${basePath}/images/cai.ico"/>
+        <link rel="icon" href="${basePath}/images/cyh.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="${basePath}/images/cyh.ico"/>
         <link rel="stylesheet" href="${basePath}/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="${basePath}/js/layui/css/layui.css"/>
         <#--<link rel="stylesheet" href="${basePath}/css/common/base.css"/>-->

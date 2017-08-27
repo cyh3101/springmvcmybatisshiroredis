@@ -1,6 +1,10 @@
 package com.cyh.common.model;
 
+import net.sf.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 
 public class URole implements Serializable{
     private Long id;
@@ -8,6 +12,8 @@ public class URole implements Serializable{
     private String name;
 
     private String type;
+
+    private List<UPermission> permissions = new LinkedList<>();
 
     public Long getId() {
         return id;
@@ -33,12 +39,15 @@ public class URole implements Serializable{
         this.type = type == null ? null : type.trim();
     }
 
+    public List<UPermission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<UPermission> permissions) {
+        this.permissions = permissions;
+    }
     @Override
     public String toString() {
-        return "URole{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                '}';
+        return JSONObject.fromObject(this).toString();
     }
 }

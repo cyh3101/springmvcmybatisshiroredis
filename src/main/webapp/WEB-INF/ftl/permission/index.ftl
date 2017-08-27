@@ -8,8 +8,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="${basePath}/images/cai.ico" type="image/x-icon"/>
-    <link rel="shortcut icon" href="${basePath}/images/cai.ico"/>
+    <link rel="icon" href="${basePath}/images/cyh.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="${basePath}/images/cyh.ico"/>
     <link rel="stylesheet" href="${basePath}/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${basePath}/css/layui.css"/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">

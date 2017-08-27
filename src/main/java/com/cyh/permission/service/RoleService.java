@@ -6,6 +6,7 @@ import com.cyh.common.model.URole;
 import com.cyh.core.mybatis.page.BaseMybatisDao;
 import com.cyh.core.mybatis.page.Pagination;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,4 +17,6 @@ public interface RoleService{
     Set<String> findRoleByUserId(Long id);
 
     Pagination<URole> findPage(Map<String, Object> map, Integer pageNo, Integer pageSize);
+
+    List<URole> findNowAllPermissions();
 }

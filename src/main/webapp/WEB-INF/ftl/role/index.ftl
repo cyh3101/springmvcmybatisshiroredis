@@ -5,8 +5,8 @@
     <head>
         <meta charset="utf-8">
         <title>角色列表-权限管理</title>
-        <link rel="icon" href="${basePath}/images/cai.ico" type="image/x-icon"/>
-        <link rel="shortcut icon" href="${basePath}/images/cai.ico"/>
+        <link rel="icon" href="${basePath}/images/cyh.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="${basePath}/images/cyh.ico"/>
         <link rel="stylesheet" href="${basePath}/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="${basePath}/css/layui.css"/>
         <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">

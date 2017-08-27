@@ -219,4 +219,19 @@
     from u_role
     <include refid="where_sql"/>
   </select>
+  <!--查询用户全部都role & permission-->
+  <resultMap id="findNowAllPermission_ResultMap" extends="BaseResultMap" type="com.cyh.common.model.URole">
+    <collection property="permissions" javaType="com.cyh.common.model.UPermission">
+      <id column="pid" property="id" jdbcType="BIGINT"/>
+      <result column="pname" property="name" jdbcType="VARCHAR"/>
+      <result column="purl" property="url" jdbcType="VARCHAR"/>
+    </collection>
+  </resultMap>
+  <select id="findNowAllPermission" resultMap="findNowAllPermission_ResultMap">
+    SELECT ur.id,ur.`name`,ur.type,up.id pid,up.`name` pname,up.url purl
+    FROM (SELECT rid from u_user_role where uid=#{userId,jdbcType=BIGINT}) uur
+    LEFT JOIN u_role ur ON uur.rid = ur.id
+    LEFT JOIN u_role_permission urp ON ur.id = urp.rid
+    LEFT JOIN u_permission up ON urp.pid = up.id
+  </select>
 </mapper>

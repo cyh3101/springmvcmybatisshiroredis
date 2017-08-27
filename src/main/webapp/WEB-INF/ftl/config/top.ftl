@@ -34,8 +34,8 @@
                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员
                     <span class="caret"></span> </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">个人资料</a> </li>
-                        <li><a href="#">我的权限</a> </li>
+                        <li><a href="${basePath}/u/index">个人资料</a> </li>
+                        <li><a href="${basePath}/role/myPermission">我的权限</a> </li>
                         <li><a href="#">退出登录</a> </li>
                     </ul>
                 </li>
