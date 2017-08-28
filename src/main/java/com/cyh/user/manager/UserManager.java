@@ -22,6 +22,11 @@ public class UserManager {
         return pwd;
     }
 
+    /**
+     * 返回树形结构
+     * @param roles
+     * @return
+     */
     public static List<Map<String, Object>> getPermissionTree(List<URole> roles){
         List<Map<String, Object>> treeData = new LinkedList<>();
 

@@ -13,10 +13,18 @@ import java.util.Set;
 /**
  * Created by cai on 2017/7/13.
  */
-public interface RoleService{
+public interface RoleService {
     Set<String> findRoleByUserId(Long id);
 
     Pagination<URole> findPage(Map<String, Object> map, Integer pageNo, Integer pageSize);
 
     List<URole> findNowAllPermissions();
+
+    int insert(URole record);
+
+    int insertSelective(URole record);
+
+    int deleteByPrimaryKey(Long id);
+
+    Map<String, Object> deleteRoleById(String ids);
 }

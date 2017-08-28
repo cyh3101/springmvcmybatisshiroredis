@@ -2,6 +2,7 @@ package com.cyh.permission.controller;
 
 import com.cyh.common.controller.BaseController;
 import com.cyh.common.model.URole;
+import com.cyh.common.utils.LoggerUtils;
 import com.cyh.core.mybatis.page.Pagination;
 import com.cyh.permission.service.RoleService;
 import com.cyh.user.manager.UserManager;
@@ -61,5 +62,26 @@ public class RoleController extends BaseController{
         List<URole> roles = roleService.findNowAllPermissions();
         List<Map<String, Object>> treeData = UserManager.getPermissionTree(roles);
         return treeData;
+    }
+
+    @RequestMapping(value = "/addRole", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> addRole(URole role){
+        int index = roleService.insertSelective(role);
+        if(index != 0){
+            resultMap.put("status", 200);
+            resultMap.put("message", "添加角色成功");
+        } else {
+            resultMap.put("status", 500);
+            resultMap.put("message", "添加角色失败");
+            LoggerUtils.fmtDebug(getClass(), "添加角色失败 source[%s]", role.toString());
+        }
+        return resultMap;
+    }
+
+    @RequestMapping(value = "/deleteRoleById", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> deleteRoleById(String ids){
+        return roleService.deleteRoleById(ids);
     }
 }
