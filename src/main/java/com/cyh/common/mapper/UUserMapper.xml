@@ -292,4 +292,21 @@
       status = #{status,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="findUserAndRole" resultType="com.cyh.permission.bo.UserRoleAllocationBo">
+    SELECT uu.id, uu.nickname, uu.email, uu.create_time, uu.last_login_time,uu.status,
+    group_concat(ur.id) roleIds,group_concat(ur.name) roleNames
+    FROM
+    u_user uu
+    LEFT JOIN u_user_role uur ON uu.id = uur.uid
+    LEFT JOIN u_role ur ON uur.rid = ur.id
+    <where>
+      <if test="findContent != null and findContent != ''">
+        AND (
+        LOWER (uu.nickname) LIKE LOWER (concat("%",#{findContent,jdbcType=VARCHAR},"%")) OR
+        LOWER (uu.email) LIKE LOWER (concat("%",#{findContent,jdbcType=VARCHAR},"%"))
+        )
+      </if>
+    </where>
+    GROUP BY uu.id
+  </select>
 </mapper>

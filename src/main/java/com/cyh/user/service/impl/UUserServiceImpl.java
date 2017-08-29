@@ -5,9 +5,11 @@ import com.cyh.common.model.UUser;
 import com.cyh.common.utils.LoggerUtils;
 import com.cyh.core.mybatis.page.BaseMybatisDao;
 import com.cyh.core.mybatis.page.Pagination;
+import com.cyh.permission.bo.UserRoleAllocationBo;
 import com.cyh.user.service.UUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -90,5 +92,10 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
             LoggerUtils.fmtError(getClass(), e, "改变用户状态失败,id:[%s],status:[%s]",id,status);
         }
         return resultMap;
+    }
+
+    @Override
+    public Pagination<UserRoleAllocationBo> findUserAndRole(ModelMap modelMap, Integer pageNo, Integer pageSize) {
+        return super.findPage("findUserAndRole", "findCount", modelMap, pageNo, pageSize);
     }
 }

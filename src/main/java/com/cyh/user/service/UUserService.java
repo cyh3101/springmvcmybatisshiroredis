@@ -2,6 +2,8 @@ package com.cyh.user.service;
 
 import com.cyh.common.model.UUser;
 import com.cyh.core.mybatis.page.Pagination;
+import com.cyh.permission.bo.UserRoleAllocationBo;
+import org.springframework.ui.ModelMap;
 
 import java.util.Map;
 
@@ -30,4 +32,7 @@ public interface UUserService {
     Pagination<UUser> findByPage(Map<String, Object> resultMap, Integer pageNo, Integer pageSize);
 
     Map<String, Object> forbidUserById(Long status, Long id);
+
+    Pagination<UserRoleAllocationBo> findUserAndRole(ModelMap modelMap, Integer pageNo,
+                                                     Integer pageSize);
 }
