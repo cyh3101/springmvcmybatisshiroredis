@@ -32,6 +32,39 @@
                 return deleteById(array);
             });
         });
+        function selectRoleById(id){
+            var load = layer.load();
+            $.post(
+                    "${basePath}/role/getRoleById",
+                    {id:id},
+                    function (result) {
+                        layer.close(load);
+                        if(result && result.length){
+                            var html = [];
+                            $.each(result,function () {
+                                html.push("<div class='checkbox'><label>");
+                                html.push("<input type='checkbox' id='");
+                                html.push(this.id);
+                                html.push("'");
+                                if(this.checked){
+                                    html.push(" checked='checked'");
+                                }
+                                html.push(" name='");
+                                html.push(this.name);
+                                html.push("'/>");
+                                html.push(this.name);
+                                html.push("</label></div>");
+                            });
+                            return so.id('selectRoleForm').html(html.join('')) & $('#selectRole').modal(),$('#selectUserId').val(id),!1;
+                        } else {
+                            return layer.msg('没有找到相关信息',so.default);
+                        }
+
+                    },
+                    'json'
+            );
+
+        }
     </script>
 </head>
 <body>
@@ -51,6 +84,7 @@
                     </div>
                     <hr>
                     <table class="table table-bordered">
+                        <input type="hidden" id="selectUserId"/>
                         <tr>
                             <th><input type="checkbox" id="checkAll"/> </th>
                             <th>用户昵称</th>
@@ -67,7 +101,7 @@
                                     <td>${it.email}</td>
                                     <td>${(it.status==1)?string('有效','无效')}</td>
                                     <td roleIds="${it.roleIds?default('')}">${it.roleNames?default('-')}</td>
-                                    <td><span class="glyphicon glyphicon-share-alt"/><a href="#">选择角色</a> </td>
+                                    <td><span class="glyphicon glyphicon-share-alt"/><a href="javascript:selectRoleById(${it.id});">选择角色</a> </td>
                                 </tr>
                             </#list>
                         <#else>
@@ -78,7 +112,24 @@
                     </table>
                 </form>
             </div>
+        </div>
+        <div class="modal fade bs-example-modal-sm" id="selectRole" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"  data-dismiss="modal"><span>&times;</span> </button>
+                        <h4 class="modal-title" id="selectRoleLabel">添加角色</h4>
+                    </div>
+                    <form id="selectRoleForm" class="modal-body">
+                        加载中...
+                    </form>
 
+                    <div class="modal-footer">
+                        <button type="button" id="close" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" id="save" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

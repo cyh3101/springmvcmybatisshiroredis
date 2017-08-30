@@ -6,12 +6,14 @@ import com.cyh.common.utils.LoggerUtils;
 import com.cyh.core.mybatis.page.BaseMybatisDao;
 import com.cyh.core.mybatis.page.Pagination;
 import com.cyh.permission.bo.UserRoleAllocationBo;
+import com.cyh.permission.bo.UserRoleBo;
 import com.cyh.user.service.UUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -98,4 +100,11 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
     public Pagination<UserRoleAllocationBo> findUserAndRole(ModelMap modelMap, Integer pageNo, Integer pageSize) {
         return super.findPage("findUserAndRole", "findCount", modelMap, pageNo, pageSize);
     }
+
+    @Override
+    public List<UserRoleBo> findRoleById(Long id) {
+        return userMapper.findRoleById(id);
+    }
+
+
 }

@@ -6,6 +6,7 @@ import com.cyh.common.model.UUserExample;
 import java.util.List;
 import java.util.Map;
 
+import com.cyh.permission.bo.UserRoleBo;
 import org.apache.ibatis.annotations.Param;
 
 public interface UUserMapper {
@@ -42,4 +43,6 @@ public interface UUserMapper {
     UUser findAll();
 
     Integer findCount();
+
+    List<UserRoleBo> findRoleById(Long id);
 }

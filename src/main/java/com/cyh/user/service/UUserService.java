@@ -3,8 +3,10 @@ package com.cyh.user.service;
 import com.cyh.common.model.UUser;
 import com.cyh.core.mybatis.page.Pagination;
 import com.cyh.permission.bo.UserRoleAllocationBo;
+import com.cyh.permission.bo.UserRoleBo;
 import org.springframework.ui.ModelMap;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,4 +37,6 @@ public interface UUserService {
 
     Pagination<UserRoleAllocationBo> findUserAndRole(ModelMap modelMap, Integer pageNo,
                                                      Integer pageSize);
+
+    List<UserRoleBo> findRoleById(Long id);
 }
