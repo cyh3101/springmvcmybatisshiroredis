@@ -16,6 +16,23 @@
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="${basePath}/js/layui/lay/dest/layui.all.js"></script>
+    <script src="${basePath}/js/init.js"></script>
+    <script>
+        so.init(function () {
+            so.checkBoxInit('#checkAll','[check=box]');
+            so.id('deleteAll').on('click',function () {
+                var checks = $('[check=box]:checked');
+                if(!checks.length){
+                    return layer.msg('请选择要清除的用户',so.default),!1
+                }
+                var array = [];
+                checks.each(function () {
+                    array.push(this.value);
+                });
+                return deleteById(array);
+            });
+        });
+    </script>
 </head>
 <body>
     <@top/>
@@ -30,7 +47,7 @@
                         <input type="text" id="findContent" name="findContent"
                                placeholder="输入用户昵称/用户账号" class="form-control">
                         <button type="submit" class="btn btn-primary">查询</button>
-                        <button type="button" class="btn btn-danger">清空用户角色</button>
+                        <button type="button" id="deleteAll" class="btn btn-danger">清空用户角色</button>
                     </div>
                     <hr>
                     <table class="table table-bordered">
@@ -45,16 +62,12 @@
                         <#if page?exists && page.list?size gt 0>
                             <#list page.list as it>
                                 <tr>
-                                    <td><input type="checkbox"  value="${it.id}"/> </td>
+                                    <td><input type="checkbox" check="box"  value="${it.id}"/> </td>
                                     <td>${it.nickname}</td>
                                     <td>${it.email}</td>
                                     <td>${(it.status==1)?string('有效','无效')}</td>
-                                    <td><#if it.roleNames?exists>
-                                        ${it.roleNames}
-                                    <#else>
-                                        -
-                                    </#if></td>
-                                    <td><span class="glyphicon"/><a href="#">选择角色</a> </td>
+                                    <td roleIds="${it.roleIds?default('')}">${it.roleNames?default('-')}</td>
+                                    <td><span class="glyphicon glyphicon-share-alt"/><a href="#">选择角色</a> </td>
                                 </tr>
                             </#list>
                         <#else>
