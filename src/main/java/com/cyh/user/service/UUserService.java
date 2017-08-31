@@ -39,4 +39,5 @@ public interface UUserService {
                                                      Integer pageSize);
 
     List<UserRoleBo> findRoleById(Long id);
+
 }

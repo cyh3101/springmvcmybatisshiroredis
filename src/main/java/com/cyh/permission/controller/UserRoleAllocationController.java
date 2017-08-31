@@ -34,9 +34,15 @@ public class UserRoleAllocationController extends BaseController{
     }
 
 
-    @RequestMapping(value = "/getRoleById",method = RequestMethod.POST)
+    @RequestMapping(value = "/getRoleById", method = RequestMethod.POST)
     @ResponseBody
     public List<UserRoleBo> getRoleById(Long id){
         return uUserService.findRoleById(id);
+    }
+
+    @RequestMapping(value = "/addRole2User", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> addRole2User(Long userId, String ids){
+        return uUserService.addRole2User(userId, ids);
     }
 }

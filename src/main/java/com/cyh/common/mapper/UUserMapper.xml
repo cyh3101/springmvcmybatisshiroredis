@@ -310,8 +310,7 @@
     GROUP BY uu.id
   </select>
   <select id="findRoleById" resultType="com.cyh.permission.bo.UserRoleBo">
-      select ur.id,ur.name,ur.type,ifnull(uu.id,0)marker,uu.id userId from u_role ur
-		left join u_user_role uur on uur.rid = ur.id
-		left join (select id from u_user where id =#{id,jdbcType=BIGINT}) uu on uu.id = uur.uid
+      select ur.id,ur.name,ur.type,ifnull(uur.uid,0) marker,uur.uid userId from u_role ur
+		left join(select * from u_user_role where uid=#{id,jdbcType=BIGINT}) uur on uur.rid = ur.id
   </select>
 </mapper>

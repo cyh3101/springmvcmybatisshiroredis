@@ -140,7 +140,7 @@
   </update>
 
   <delete id="deleteByUserId" parameterType="java.lang.Long">
-    delete from u_user_role uur
-    WHERE uur.uid = #{id,jdbcType=VARCHAR}
+    delete from u_user_role
+    WHERE uid = #{id,jdbcType=BIGINT}
   </delete>
 </mapper>

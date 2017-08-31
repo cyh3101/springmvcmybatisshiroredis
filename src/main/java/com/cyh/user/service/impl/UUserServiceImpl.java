@@ -1,8 +1,11 @@
 package com.cyh.user.service.impl;
 
 import com.cyh.common.dao.UUserMapper;
+import com.cyh.common.dao.UUserRoleMapper;
 import com.cyh.common.model.UUser;
+import com.cyh.common.model.UUserRole;
 import com.cyh.common.utils.LoggerUtils;
+import com.cyh.common.utils.StringUtils;
 import com.cyh.core.mybatis.page.BaseMybatisDao;
 import com.cyh.core.mybatis.page.Pagination;
 import com.cyh.permission.bo.UserRoleAllocationBo;
@@ -23,6 +26,9 @@ import java.util.Map;
 public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUserService{
     @Autowired
     private UUserMapper userMapper;
+    @Autowired
+    private UUserRoleMapper userRoleMapper;
+
     @Override
     public int deleteByPrimaryKey(Long id) {
         return this.userMapper.deleteByPrimaryKey(id);
@@ -71,7 +77,38 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
 
     @Override
     public Map<String, Object> addRole2User(Long userId, String ids) {
-        return null;
+        Map<String, Object> resultMap = new HashMap<>();
+        int count = 0;
+        try {
+            //先删除所有权限
+            userRoleMapper.deleteByUserId(userId);
+            if(!StringUtils.isBlank(ids)){
+                String[] idArray = null;
+                if(StringUtils.contains(ids, ",")){
+                    idArray = ids.split(",");
+                }else {
+                    idArray = new String[]{ids};
+                }
+
+                for (String id:idArray
+                        ) {
+                    if(!StringUtils.isBlank(id)){
+                        UUserRole entity = new UUserRole();
+                        entity.setUid(userId);
+                        entity.setRid(new Long(id));
+                        count += userRoleMapper.insertSelective(entity);
+                    }
+                }
+            }
+            resultMap.put("status", 200);
+            resultMap.put("message", "操作成功");
+        }catch (Exception e){
+            resultMap.put("status", 500);
+            resultMap.put("message", "操作失败");
+        }
+        resultMap.put("count", count);
+
+        return resultMap;
     }
 
     @Override
