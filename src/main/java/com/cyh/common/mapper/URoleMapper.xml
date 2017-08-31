@@ -234,4 +234,27 @@
     LEFT JOIN u_role_permission urp ON ur.id = urp.rid
     LEFT JOIN u_permission up ON urp.pid = up.id
   </select>
+  <select id="findRoleAndPermission" resultType="com.cyh.permission.bo.RolePermissionAllocationBo">
+    SELECT
+        ur.id,
+        ur.NAME,
+        ur.type,
+        GROUP_CONCAT(up.url) permissionUrls,
+        GROUP_CONCAT(up. NAME) permissionNames
+    FROM
+        u_role ur
+    LEFT JOIN u_role_permission urp ON urp.rid = ur.id
+    LEFT JOIN u_permission up ON urp.pid = up.id
+    <where>
+        <if test="findContent != null and findContent != ''">
+          AND (
+          LOWER (ur.name) LIKE LOWER(concat("%",#{findContent,jdbcType=VARCHAR},"%")) OR
+          LOWER (ur.type) LIKE LOWER(concat("%",#{findContent,jdbcType=VARCHAR},"%"))
+          )
+        </if>
+    </where>
+    GROUP BY
+        ur.id
+    <include refid="limit_sql"/>
+  </select>
 </mapper>

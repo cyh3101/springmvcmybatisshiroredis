@@ -32,6 +32,7 @@
                 return deleteById(array);
             });
         });
+        selectRoleById
         function selectRoleById(id){
             var load = layer.load();
             $.post(
@@ -63,7 +64,34 @@
                     },
                     'json'
             );
+        }
+        function selectRole(){
+            var checked = $("#selectRoleForm :checked");
+            var ids=[], names=[];
+            $.each(checked,function () {
+                ids.push(this.id);
+                names.push($.trim($(this).attr('name')));
+            });
 
+            var index = layer.confirm("确定提交?",function () {
+                var load = layer.load();
+                $.post(
+                        "${basePath}/role/addRole2User",
+                        {userId:$('#selectUserId').val(),ids:ids.join(',')},
+                        function (result) {
+                            layer.close(load);
+                            if(result && result.status !=200){
+                                return layer.msg(result.message),!1;
+                            }else{
+                                layer.msg("设置成功");
+                            }
+                            setTimeout(function () {
+                                $('#formId').submit();
+                            },1000);
+                        },
+                        'json'
+                );
+            });
         }
     </script>
 </head>
@@ -126,7 +154,7 @@
 
                     <div class="modal-footer">
                         <button type="button" id="close" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" id="save" class="btn btn-primary">保存</button>
+                        <button type="button" id="save" onclick="selectRole();" class="btn btn-primary">保存</button>
                     </div>
                 </div>
             </div>

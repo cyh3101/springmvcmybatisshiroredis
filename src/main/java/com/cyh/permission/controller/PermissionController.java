@@ -28,9 +28,4 @@ public class PermissionController extends BaseController{
         Pagination<UPermission> page = permissionService.findPage(map, pageNo, pageSize);
         return new ModelAndView("permission/index", "page", page);
     }
-
-    @RequestMapping(value = "/allocation", method = RequestMethod.GET)
-    public ModelAndView allocation(){
-        return null;
-    }
 }

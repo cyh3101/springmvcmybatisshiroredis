@@ -7,6 +7,7 @@ import com.cyh.common.utils.StringUtils;
 import com.cyh.core.mybatis.page.BaseMybatisDao;
 import com.cyh.core.mybatis.page.Pagination;
 import com.cyh.core.shiro.token.manager.TokenManager;
+import com.cyh.permission.bo.RolePermissionAllocationBo;
 import com.cyh.permission.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,11 @@ public class RoleServiceImpl extends BaseMybatisDao<URoleMapper> implements Role
     @Override
     public Pagination<URole> findPage(Map<String, Object> map, Integer pageNo, Integer pageSize) {
         return super.findPage(map, pageNo, pageSize);
+    }
+
+    @Override
+    public Pagination<RolePermissionAllocationBo> findRoleAndPermissionPage(Map<String, Object> map, Integer pageNo, Integer pageSize) {
+        return super.findPage("findRoleAndPermission", "findCount", map, pageNo, pageSize);
     }
 
     @Override
