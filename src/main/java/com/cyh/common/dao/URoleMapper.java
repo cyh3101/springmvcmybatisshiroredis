@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.cyh.permission.bo.RolePermissionBo;
 import org.apache.ibatis.annotations.Param;
 
 public interface URoleMapper {
@@ -38,6 +39,8 @@ public interface URoleMapper {
     void initData();
 
     List<URole> findAll();
+
+    List<RolePermissionBo> findPermissionById(Long id);
 
     int findCount();
 }

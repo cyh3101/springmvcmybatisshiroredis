@@ -16,6 +16,7 @@ public class UserRoleBo extends URole implements Serializable{
     public boolean isChecked(){
         return StringUtils.equals(userId, marker);
     }
+
     public String getUserId() {
         return userId;
     }

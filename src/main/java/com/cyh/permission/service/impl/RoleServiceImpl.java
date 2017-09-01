@@ -8,6 +8,7 @@ import com.cyh.core.mybatis.page.BaseMybatisDao;
 import com.cyh.core.mybatis.page.Pagination;
 import com.cyh.core.shiro.token.manager.TokenManager;
 import com.cyh.permission.bo.RolePermissionAllocationBo;
+import com.cyh.permission.bo.RolePermissionBo;
 import com.cyh.permission.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,11 @@ public class RoleServiceImpl extends BaseMybatisDao<URoleMapper> implements Role
         Map<String, Object> map = new HashMap<>();
         map.put("userId", 1);
         return uRoleMapper.findNowAllPermission(map);
+    }
+
+    @Override
+    public List<RolePermissionBo> findPermissionById(Long id) {
+        return uRoleMapper.findPermissionById(id);
     }
 
     @Override

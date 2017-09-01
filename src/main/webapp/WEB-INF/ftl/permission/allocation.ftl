@@ -32,11 +32,11 @@
                             $.each(result,function () {
                                 html.push("<div class='checkbox'>");
                                 html.push("<label>");
-                                html.push("<input type='checkbox");
+                                html.push("<input type='checkbox'");
                                 html.push(" id='");
                                 html.push(this.id);
                                 html.push("'");
-                                if(this.check){
+                                if(this.checked){
                                     html.push(" checked='checked'");
                                 }
                                 html.push(" name='");
@@ -100,8 +100,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal modal-content" id="selectPermissionModal">
-            <div class="modal-dialog">
+        <div class="modal fade bs-example-modal-sm" id="selectPermissionModal" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button class="close" data-dismiss="modal">&times;</button>

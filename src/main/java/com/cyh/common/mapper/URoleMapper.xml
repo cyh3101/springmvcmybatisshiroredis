@@ -257,4 +257,20 @@
         ur.id
     <include refid="limit_sql"/>
   </select>
+  <select id="findPermissionById" resultType="com.cyh.permission.bo.RolePermissionBo">
+    SELECT
+        up.id,
+        up. NAME,
+        up.url,
+        IFNULL(urp.rid, 0) mark,
+        urp.rid roleId
+    FROM
+        u_permission up
+    LEFT JOIN (
+	SELECT
+		*
+	FROM
+		u_role_permission where rid=#{id,jdbcType=BIGINT}
+    ) urp ON urp.pid = up.id
+  </select>
 </mapper>
