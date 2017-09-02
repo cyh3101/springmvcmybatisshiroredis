@@ -16,9 +16,10 @@
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="${basePath}/js/layui/lay/dest/layui.all.js"></script>
+    <script src="${basePath}/js/init.js"></script>
     <script>
         so.init(function () {
-            so.checkBoxInit('#checkAll',[checked])
+            so.checkBoxInit('#checkAll','[check=box]');
         });
         function selectPermissionById(id) {
             var load = layer.load();
@@ -55,7 +56,31 @@
             );
         }
         function selectPermission() {
-
+            var checked = $("#selectPermissionForm :checked");
+            var ids=[],names=[];
+            $.each(checked,function () {
+                ids.push(this.id);
+                names.push($.trim($(this.id).attr(this.name)));
+            });
+            var index = layer.confirm("确定提交?",function () {
+                var load = layer.load();
+                $.post(
+                        "${basePath}/permission/addPermission2Role",
+                        {ids:ids.join(","),roleId:$('#selectRoleId').val()},
+                        function (result) {
+                            layer.close(load);
+                            if(result && result.status != 200){
+                                return layer.msg(result.message,so.default()),!1;
+                            }else {
+                                layer.msg("设置权限成功");
+                                setTimeout(function () {
+                                    $('#formId').submit();
+                                },1000);
+                            }
+                        },
+                        'json'
+                );
+            });
         }
     </script>
 </head>
@@ -85,7 +110,7 @@
                     <#if page.list?exists && page.list?size gt 0>
                         <#list page.list as it>
                             <tr>
-                                <td><input type="checkbox" id="${it.id}"/> </td>
+                                <td><input type="checkbox" check="box" id="${it.id}"/> </td>
                                 <td>${it.name}</td>
                                 <td>${it.type}</td>
                                 <td>${it.permissionNames?default('-')}</td>
@@ -115,7 +140,6 @@
                         <button type="button" class="btn btn-primary" onclick="selectPermission();">保存</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

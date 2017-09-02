@@ -60,7 +60,6 @@
                         } else {
                             return layer.msg('没有找到相关信息',so.default);
                         }
-
                     },
                     'json'
             );

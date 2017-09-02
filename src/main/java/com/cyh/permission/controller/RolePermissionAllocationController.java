@@ -4,6 +4,7 @@ import com.cyh.common.controller.BaseController;
 import com.cyh.core.mybatis.page.Pagination;
 import com.cyh.permission.bo.RolePermissionAllocationBo;
 import com.cyh.permission.bo.RolePermissionBo;
+import com.cyh.permission.service.PermissionService;
 import com.cyh.permission.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,9 @@ public class RolePermissionAllocationController extends BaseController{
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private PermissionService permissionService;
+
     @RequestMapping(value = "/allocation", method = RequestMethod.GET)
     public ModelAndView allocation(ModelMap map, Integer pageNo, String findContent){
         map.put("findContent", findContent);
@@ -38,4 +42,11 @@ public class RolePermissionAllocationController extends BaseController{
     public List<RolePermissionBo> selectPermissionById(Long id){
         return roleService.findPermissionById(id);
     }
+
+    @RequestMapping(value = "/addPermission2Role", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> addPermission2Role(String ids, Long roleId){
+        return permissionService.addPermission2Role(ids, roleId);
+    }
 }
+

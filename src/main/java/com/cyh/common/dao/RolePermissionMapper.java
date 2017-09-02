@@ -19,4 +19,6 @@ public interface RolePermissionMapper {
     int updateByExampleSelective(@Param("record") RolePermission record, @Param("example") RolePermissionExample example);
 
     int updateByExample(@Param("record") RolePermission record, @Param("example") RolePermissionExample example);
+
+    int deleteByRoleId(Long roleId);
 }
