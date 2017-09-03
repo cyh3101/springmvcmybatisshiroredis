@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
@@ -27,5 +28,11 @@ public class PermissionController extends BaseController{
         map.put("findContent", findContent);
         Pagination<UPermission> page = permissionService.findPage(map, pageNo, pageSize);
         return new ModelAndView("permission/index", "page", page);
+    }
+
+    @RequestMapping(value = "/deleteById", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> deleteById(String ids){
+        return permissionService.deleteById(ids);
     }
 }

@@ -44,6 +44,31 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
         return executePermission(ids, roleId);
     }
 
+    @Override
+    public Map<String, Object> deleteById(String ids) {
+        Map<String, Object> resultMap = new HashMap<>();
+        String[] idArray = new String[]{};
+        int count = 0;
+        if(StringUtils.contains(ids, ',')){
+            idArray = ids.split(",");
+        } else {
+            idArray = new String[]{ids};
+        }
+        try {
+            for (String id:idArray
+                    ) {
+                count += uPermissionMapper.deleteByPrimaryKey(new Long(id));
+            }
+            resultMap.put("status", 200);
+            resultMap.put("message", "删除成功");
+        } catch (Exception e){
+            resultMap.put("status", 500);
+            resultMap.put("message", "删除失败");
+        }
+        resultMap.put("count", count);
+        return resultMap;
+    }
+
     public Map<String, Object> executePermission(String ids, Long roleId){
         Map<String, Object> resultMap = new HashMap<>();
         int count = 0;

@@ -15,11 +15,11 @@
             //childCheckbox.add(prentCheckbox).attr('checked',!1);
             //全选
             prentCheckbox.on('click',function(){
-                childCheckbox.attr('checked',this.checked);
+                childCheckbox.prop('checked',this.checked);
             });
             //子选择
             childCheckbox.on('click',function(){
-                prentCheckbox.attr('checked',childCheckbox.length === childCheckbox.end().find(':checked').not(prentCheckbox).length);
+                prentCheckbox.prop('checked',childCheckbox.length === childCheckbox.end().find(':checked').not(prentCheckbox).length);
             });
         },
             //初始化

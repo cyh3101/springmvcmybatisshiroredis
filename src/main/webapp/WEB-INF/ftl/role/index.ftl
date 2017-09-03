@@ -10,10 +10,22 @@
         <link rel="stylesheet" href="${basePath}/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="${basePath}/css/layui.css"/>
         <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+        <script src="${basePath}/js/jquery-3.2.1.js"></script>
+        <script src="${basePath}/js/init.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="${basePath}/js/layui/lay/dest/layui.all.js"></script>
         <script>
+            so.init(function () {
+                so.checkBoxInit('#checkAll','[check=box]');
+                so.id('deleteAll').on('click',function () {
+                    var ids = [];
+                    var checked = $('[check=box]:checked');
+                    $.each(checked,function () {
+                       ids.push(this.id);
+                    });
+                    deleteById(ids);
+                });
+            });
             function addRole() {
                 var name = $('#name').val();
                 var type = $('#type').val();
@@ -81,12 +93,12 @@
                         <span>
                             <button type="submit" class="btn btn-primary">查询</button>
                             <a href="javascript:void(0);" class="btn btn-success" onclick="$('#addRole').modal();">增加角色</a>
-                            <button type="submit" class="btn btn-danger">删除</button>
+                            <button type="button" id="deleteAll" class="btn btn-danger">删除</button>
                         </span>
                         <hr>
                         <table class="table table-bordered">
                             <tr>
-                                <th><input type="checkbox" > </th>
+                                <th><input type="checkbox" id="checkAll"/> </th>
                                 <th>角色名称</th>
                                 <th>角色类型</th>
                                 <th>操作</th>
@@ -94,7 +106,7 @@
                             <#if page.list?exists && page.list?size gt 0>
                                 <#list page.list as it>
                                     <tr>
-                                        <td><input type="checkbox" value="${it.id}" id="checkAll"/> </td>
+                                        <td><input type="checkbox" id="${it.id}" check="box"/> </td>
                                         <td>${it.name}</td>
                                         <td>${it.type}</td>
                                         <td>

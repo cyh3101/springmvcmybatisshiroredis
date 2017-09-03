@@ -16,4 +16,6 @@ public interface PermissionService {
     Pagination<UPermission> findPage(Map<String, Object> map, Integer pageNo, Integer pageSize);
 
     Map<String, Object> addPermission2Role(String ids, Long roleId);
+
+    Map<String, Object> deleteById(String ids);
 }

@@ -13,9 +13,47 @@
     <link rel="stylesheet" href="${basePath}/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${basePath}/css/layui.css"/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="${basePath}/js/jquery-3.2.1.js"></script>
+    <script src="${basePath}/js/layui/lay/dest/layui.all.js"></script>
+    <script src="${basePath}/js/init.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <script>
+        so.init(function () {
+            so.checkBoxInit('#selectAll','[check=box]');
+            so.id('deleteAll').on('click',function () {
+                deleteById();
+            });
+        });
+        function deleteById() {
+            var checked = $('[check=box]:checked');
+            var ids = [];
+            $.each(checked,function () {
+               ids.push(this.id);
+            });
+            _delete(ids.join(','));
+        }
+        function _delete(ids) {
+            var index = layer.confirm("确定删除?",function () {
+                var load = layer.load();
+                $.post(
+                       "/permission/deleteById",
+                       {ids:ids},
+                       function (result) {
+                           layer.close(load);
+                           if(result && result.status != 200){
+                               return layer.msg("删除失败", so.default()),!1;
+                           } else {
+                               layer.msg("删除成功");
+                           }
+                           setTimeout(function () {
+                               $('#formId').submit();
+                           });
+                       }
+               );
+                layer.close(load);
+            });
+        }
+    </script>
 </head>
 <body>
     <@top/>
@@ -32,14 +70,14 @@
                         <span>
                             <button type="submit" class="btn btn-primary">查询</button>
                             <button type="button" class="btn btn-success">增加权限</button>
-                            <button type="button" class="btn btn-danger">删除</button>
+                            <button type="button" id="deleteAll" class="btn btn-danger">删除</button>
                         </span>
                     </div>
                 </form>
                 <hr>
                 <table class="table table-bordered">
                     <tr>
-                        <th><input type="checkbox"/> </th>
+                        <th><input type="checkbox" id="selectAll"/> </th>
                         <th>权限名称</th>
                         <th>角色类型</th>
                         <th>操作</th>
@@ -47,12 +85,12 @@
                     <#if page.list?exists && page.list?size gt 0>
                         <#list page.list as it>
                             <tr>
-                                <td><input type="checkbox" value="${it.id}"/> </td>
+                                <td><input type="checkbox" check="box" id="${it.id}"/> </td>
                                 <td>${it.name}</td>
                                 <td>${it.url}</td>
                                 <td>
                                     <i class="glyphicon glyphicon-remove"></i>
-                                    <a href="#">删除</a>
+                                    <a href="javascript:_delete(${it.id});">删除</a>
                                 </td>
                             </tr>
                         </#list>

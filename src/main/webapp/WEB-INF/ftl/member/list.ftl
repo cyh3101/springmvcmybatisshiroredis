@@ -8,13 +8,24 @@
         <link rel="shortcut icon" href="${basePath}/images/cyh.ico"/>
         <link rel="stylesheet" href="${basePath}/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="${basePath}/js/layui/css/layui.css"/>
-        <#--<link rel="stylesheet" href="${basePath}/css/common/base.css"/>-->
-        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="${basePath}/js/jquery-3.2.1.js"></script>
 
         <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="${basePath}/js/layui/lay/dest/layui.all.js"></script>
-        <script type="text/javascript">
+        <script src="${basePath}/js/init.js"></script>
+        <script>
+            so.init(function () {
+                so.checkBoxInit('#selectAll', '[check=box]');
+                $('#deleteAll').on('click',function () {
+                    var checkeds = $('[check=box]:checked');
+                    var ids = [];
+                    $.each(checkeds,function () {
+                        ids.push(this.id);
+                    });
+                    return deleteUserById(ids.join(","));
+                });
+            });
             function forbidUserById(status,id) {
                 var text = status==0?"禁止":"允许";
                 var index = layer.confirm("确定"+text+"这个用户",function () {
@@ -76,7 +87,7 @@
                         </div>
                         <span>
                             <button type="submit" class="btn btn-primary">查询</button>
-                            <button type="button" class="btn btn-danger">删除</button>
+                            <button type="button" id="deleteAll" class="btn btn-danger">删除</button>
                         </span>
                         <hr>
                         <table class="table table-bordered">
@@ -92,7 +103,7 @@
                             <#if page?exists && page.list?size gt 0>
                                 <#list page.list as it>
                                     <tr>
-                                        <td><input type="checkbox" id="${it.id}"/> </td>
+                                        <td><input type="checkbox" check="box" id="${it.id}"/> </td>
                                         <td>${it.nickname}</td>
                                         <td>${it.email}</td>
                                         <td>${(it.status==1)?string('有效','无效')}</td>

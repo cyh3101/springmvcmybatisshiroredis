@@ -6,7 +6,6 @@ import com.cyh.common.utils.LoggerUtils;
 import com.cyh.common.utils.StringUtils;
 import com.cyh.core.mybatis.page.BaseMybatisDao;
 import com.cyh.core.mybatis.page.Pagination;
-import com.cyh.core.shiro.token.manager.TokenManager;
 import com.cyh.permission.bo.RolePermissionAllocationBo;
 import com.cyh.permission.bo.RolePermissionBo;
 import com.cyh.permission.service.RoleService;
@@ -90,18 +89,20 @@ public class RoleServiceImpl extends BaseMybatisDao<URoleMapper> implements Role
             }else {
                 idArray = new String[]{ids};
             }
-            c:for (String idx : idArray){
-                Long id = new Long(idx);
-                if(new Long(1).equals(id)){
-                    resultMsg = "删除成功，但admin角色不能删除";
-                    continue c;
-                } else {
-                    count += this.deleteByPrimaryKey(id);
+            if(idArray != null && idArray.length > 0){
+                c:for (String idx : idArray){
+                    Long id = new Long(idx);
+                    if(new Long(1).equals(id)){
+                        resultMsg = "删除成功，但admin角色不能删除";
+                        continue c;
+                    } else {
+                        count += this.deleteByPrimaryKey(id);
+                    }
                 }
+                resultMap.put("status", 200);
+                resultMap.put("message", "删除成功");
+                resultMap.put("count", count);
             }
-            resultMap.put("status", 200);
-            resultMap.put("message", "删除成功");
-            resultMap.put("count", count);
         }catch (Exception e){
             resultMap.put("status", 500);
             resultMap.put("message", "删除失败");

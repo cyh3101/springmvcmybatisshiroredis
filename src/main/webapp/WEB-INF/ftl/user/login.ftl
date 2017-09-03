@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="${basePath}/css/login/supersized.css"/>
     <link rel="stylesheet" href="${basePath}/css/login/style.css"/>
 
-    <title>Title</title>
-
 </head>
 <body id="body">
     <div id="supersized"></div>
@@ -71,7 +69,7 @@
                 });
             });
             $("#register").click(function () {
-                window.location.href = "register";
+                window.location.href = "u/register";
             });
         });
     </script>

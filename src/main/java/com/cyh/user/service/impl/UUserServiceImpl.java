@@ -26,6 +26,7 @@ import java.util.Map;
 public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUserService{
     @Autowired
     private UUserMapper userMapper;
+
     @Autowired
     private UUserRoleMapper userRoleMapper;
 
@@ -141,6 +142,37 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
     @Override
     public List<UserRoleBo> findRoleById(Long id) {
         return userMapper.findRoleById(id);
+    }
+
+    /**
+     * 通过ids字符串删除用户
+     * @param ids
+     * @return
+     */
+    @Override
+    public Map<String, Object> deleteById(String ids) {
+        Map<String, Object> resultMap = new HashMap<>();
+        int count = 0;
+        String[] idArray = new String[]{};
+        try {
+            if(ids.contains(",")){
+                idArray = ids.split(",");
+            }else {
+                idArray = new String[]{ids};
+            }
+            for (String id:idArray
+                    ) {
+                count += userMapper.deleteByPrimaryKey(new Long(id));
+            }
+            resultMap.put("status",200);
+            resultMap.put("message","删除成功");
+        }catch (Exception e){
+            resultMap.put("status", 500);
+            resultMap.put("message", "删除失败");
+        }finally {
+            resultMap.put("count", count);
+        }
+        return resultMap;
     }
 
 

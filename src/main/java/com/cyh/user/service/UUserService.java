@@ -40,4 +40,5 @@ public interface UUserService {
 
     List<UserRoleBo> findRoleById(Long id);
 
+    Map<String, Object> deleteById(String ids);
 }

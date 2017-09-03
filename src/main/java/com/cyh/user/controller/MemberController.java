@@ -53,17 +53,18 @@ public class MemberController extends BaseController{
 
     @RequestMapping(value = "/deleteUserById", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> deleteUserById(Long id){
-        System.out.println("deleteUserById 被调用了");
-        Map<String, Object> resultMap = new HashMap<>();
-        Integer deleteId = uUserService.deleteByPrimaryKey(id);
-        if(deleteId != 0){
-            resultMap.put("status",200);
-            resultMap.put("message","删除成功");
-        } else {
-            resultMap.put("status", 500);
-            resultMap.put("message","删除失败");
-        }
-        return resultMap;
+    public Map<String, Object> deleteUserById(String id){
+        return uUserService.deleteById(id);
+//        System.out.println("deleteUserById 被调用了");
+//        Map<String, Object> resultMap = new HashMap<>();
+//        Integer deleteId = uUserService.deleteByPrimaryKey(id);
+//        if(deleteId != 0){
+//            resultMap.put("status",200);
+//            resultMap.put("message","删除成功");
+//        } else {
+//            resultMap.put("status", 500);
+//            resultMap.put("message","删除失败");
+//        }
+//        return resultMap;
     }
 }
