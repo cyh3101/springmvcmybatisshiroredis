@@ -53,6 +53,33 @@
                 layer.close(load);
             });
         }
+        function addPermission() {
+            var name = $('#pname').val();
+            var url = $('#purl').val();
+            if(!name || $.trim(name) ==''){
+                return layer.msg("权限名称不能为空",so.default()),!1;
+            }
+            if(!url || $.trim(url) == ''){
+                return layer.msg("权限URL地址不能为空",so.default()),!1;
+            }
+            var load = layer.load();
+            $.post(
+                    "${basePath}/permission/addPermission",
+                    {name:name,url:url},
+                    function (result) {
+                        layer.close(load);
+                        if(result && result.status != 200){
+                            return layer.msg("添加失败"),!1;
+                        }else {
+                            layer.msg("添加成功");
+                        }
+                        setTimeout(function () {
+                            $('#formId').submit();
+                        },1000);
+                    },
+                    'json'
+            );
+        }
     </script>
 </head>
 <body>
@@ -69,7 +96,7 @@
                                placeholder="输入权限名称" class="form-control" width="300"/>
                         <span>
                             <button type="submit" class="btn btn-primary">查询</button>
-                            <button type="button" class="btn btn-success">增加权限</button>
+                            <button type="button" class="btn btn-success" onclick="$('#addPermissionModal').modal();">增加权限</button>
                             <button type="button" id="deleteAll" class="btn btn-danger">删除</button>
                         </span>
                     </div>
@@ -104,6 +131,30 @@
                 </table>
                 <div class="pagination pull-right">
                     ${page.pageHtml}
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="addPermissionModal" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">添加权限</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="control-label">权限名称:</label>
+                            <input type="text" name="pname" id="pname" class="form-control" placeholder="请输入权限名称"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">权限URL地址:</label>
+                            <input type="text" name="purl" id="purl" class="form-control" placeholder="请输入URL地址"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="addPermission()">保存</button>
+                    </div>
                 </div>
             </div>
         </div>

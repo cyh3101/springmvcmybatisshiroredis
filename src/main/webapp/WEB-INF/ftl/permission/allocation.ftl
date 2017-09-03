@@ -30,10 +30,11 @@
                         layer.close(load);
                         var html = [];
                         if(result && result.length){
+                            html.push("<div class='checkbox'><label><input type='checkbox' selectAllBox=''/>全选 </labe></div>")
                             $.each(result,function () {
                                 html.push("<div class='checkbox'>");
                                 html.push("<label>");
-                                html.push("<input type='checkbox'");
+                                html.push("<input type='checkbox' selectBox=''");
                                 html.push(" id='");
                                 html.push(this.id);
                                 html.push("'");
@@ -46,7 +47,9 @@
                                 html.push(this.name);
                                 html.push("</label></div>");
                             });
-                            $('#selectPermissionForm').html(html.join('')),$('#selectRoleId').val(id),$('#selectPermissionModal').modal();
+                            return $('#selectPermissionForm').html(html.join('')),$('#selectRoleId').val(id),
+                                    so.checkBoxInit('[selectAllBox]','[selectBox]'),
+                                    $('#selectPermissionModal').modal(),!1;
 
                         }else {
                             return layer.msg(result.message,so.default()),!1;
@@ -56,7 +59,7 @@
             );
         }
         function selectPermission() {
-            var checked = $("#selectPermissionForm :checked");
+            var checked = $("#selectPermissionForm :checked").not('[selectAllBox]');
             var ids=[],names=[];
             $.each(checked,function () {
                 ids.push(this.id);

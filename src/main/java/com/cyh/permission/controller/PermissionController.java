@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -34,5 +35,19 @@ public class PermissionController extends BaseController{
     @ResponseBody
     public Map<String, Object> deleteById(String ids){
         return permissionService.deleteById(ids);
+    }
+
+    @RequestMapping(value = "/addPermission", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> addPermission(UPermission permission){
+        try {
+            UPermission entity = permissionService.addPermision(permission);
+            resultMap.put("status", 200);
+            resultMap.put("message", "添加成功");
+        } catch (Exception e){
+            resultMap.put("status", 500);
+            resultMap.put("message","添加失败");
+        }
+        return resultMap;
     }
 }

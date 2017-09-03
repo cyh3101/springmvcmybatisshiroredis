@@ -69,6 +69,12 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
         return resultMap;
     }
 
+    @Override
+    public UPermission addPermision(UPermission permission) {
+        uPermissionMapper.insert(permission);
+        return permission;
+    }
+
     public Map<String, Object> executePermission(String ids, Long roleId){
         Map<String, Object> resultMap = new HashMap<>();
         int count = 0;

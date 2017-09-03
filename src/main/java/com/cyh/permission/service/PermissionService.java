@@ -18,4 +18,6 @@ public interface PermissionService {
     Map<String, Object> addPermission2Role(String ids, Long roleId);
 
     Map<String, Object> deleteById(String ids);
+
+    UPermission addPermision(UPermission permission);
 }
