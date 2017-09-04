@@ -32,6 +32,26 @@
                 return deleteById(array);
             });
         });
+        function deleteById(ids) {
+            var index = layer.confirm("确定清除?",function () {
+                var load = layer.load();
+                $.post(
+                        "${basePath}/role/clearRoleByUserIds",
+                        {ids:ids.join(',')},
+                        function (result) {
+                            if(result && result.status != 200){
+                                return layer.msg("删除失败",so.default()),!1;
+                            }
+                            layer.msg("删除成功");
+                            setTimeout(function () {
+                                $('#formId').submit();
+                            },1000);
+                        },
+                        'json'
+
+                );
+            })
+        }
         selectRoleById
         function selectRoleById(id){
             var load = layer.load();

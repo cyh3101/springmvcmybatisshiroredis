@@ -13,6 +13,10 @@
             </map>
         </property>
     </bean>
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
     <!--登陆筛选-->
     <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
         <property name="usernameParam" value="userName"/>
@@ -40,6 +44,7 @@
     </bean>
     <bean id="jedisShiroCacheManager" class="com.cyh.core.shiro.cache.impl.JedisShiroCacheManager">
     </bean>
+
 
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
         <property name="cacheManager" ref="ehCacheMananger"/>
@@ -89,4 +94,5 @@
     <bean id="jedisManager" class="com.cyh.core.shiro.cache.JedisManager">
         <property name="jedisPool" ref="jedisPool"/>
     </bean>
+
 </beans>

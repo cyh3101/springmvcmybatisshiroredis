@@ -45,4 +45,6 @@ public interface UUserMapper {
     Integer findCount();
 
     List<UserRoleBo> findRoleById(Long id);
+
+    int deleteRoleByIds(Map<String, Object> map);
 }

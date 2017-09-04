@@ -175,5 +175,23 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
         return resultMap;
     }
 
-
+    /**
+     * 通过用户ids清空用户的角色信息，用户id以','隔开
+     * @param ids
+     * @return
+     */
+    @Override
+    public Map<String, Object> clearRoleByUserIds(String ids) {
+        Map<String, Object> resultMap = new HashMap<>();
+        try {
+            resultMap.put("userIds", ids);
+            userMapper.deleteRoleByIds(resultMap);
+            resultMap.put("status", 200);
+            resultMap.put("message", "删除成功");
+        }catch (Exception e){
+            resultMap.put("status",500);
+            resultMap.put("message","删除失败");
+        }
+        return resultMap;
+    }
 }

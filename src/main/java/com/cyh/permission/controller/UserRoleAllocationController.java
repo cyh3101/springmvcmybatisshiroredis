@@ -45,4 +45,10 @@ public class UserRoleAllocationController extends BaseController{
     public Map<String, Object> addRole2User(Long userId, String ids){
         return uUserService.addRole2User(userId, ids);
     }
+
+    @RequestMapping(value = "/clearRoleByUserIds",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> clearRoleByUserIds(String ids){
+        return uUserService.clearRoleByUserIds(ids);
+    }
 }

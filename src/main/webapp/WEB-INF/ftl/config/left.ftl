@@ -19,6 +19,7 @@
     </div>
 </#macro>
 <#macro memeber index>
+
     <div class="col-md-2">
         <ul class="nav nav-list nav-stacked nav-tabs dropdown">
             <li class="${(index==1)?string('active','')}"><a href="${basePath}/member/list">
@@ -31,14 +32,14 @@
 <#macro role index>
     <div class="col-md-2">
         <ul class="nav nav-list nav-stacked nav-tabs dropdown">
-            <li class="${(index==1)?string('active','')}"><a href="${basePath}/role/index">
-                <i class="glyphicon glyphicon-chevron-right"></i>角色列表</a> </li>
-            <li class="${(index==2)?string('active','')}"><a href="${basePath}/role/allocation">
-                <i class="glyphicon glyphicon-chevron-right"></i>角色分配</a> </li>
-            <li class="${(index==3)?string('active','')}"><a href="${basePath}/permission/index">
-                <i class="glyphicon glyphicon-chevron-right"></i>权限列表</a> </li>
-            <li class="${(index==4)?string('active','')}"><a href="${basePath}/permission/allocation">
-                <i class="glyphicon glyphicon-chevron-right"></i>权限分配</a> </li>
+                <li class="${(index==1)?string('active','')}"><a href="${basePath}/role/index">
+                    <i class="glyphicon glyphicon-chevron-right"></i>角色列表</a> </li>
+                <li class="${(index==2)?string('active','')}"><a href="${basePath}/role/allocation">
+                    <i class="glyphicon glyphicon-chevron-right"></i>角色分配</a> </li>
+                <li class="${(index==3)?string('active','')}"><a href="${basePath}/permission/index">
+                    <i class="glyphicon glyphicon-chevron-right"></i>权限列表</a> </li>
+                <li class="${(index==4)?string('active','')}"><a href="${basePath}/permission/allocation">
+                    <i class="glyphicon glyphicon-chevron-right"></i>权限分配</a> </li>
         </ul>
     </div>
 </#macro>

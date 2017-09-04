@@ -64,12 +64,13 @@
     </bean>-->
 
     <!--配置freemaker-->
-    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/WEB-INF/ftl/"/>
-        <property name="defaultEncoding" value="utf-8"/>
-    </bean>
+    <!--<bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">-->
+        <!--<property name="templateLoaderPath" value="/WEB-INF/ftl/"/>-->
+        <!--<property name="defaultEncoding" value="utf-8"/>-->
+    <!--</bean>-->
 
-    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+    <!--配置freemarker视图解析器-->
+    <bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
         <property name="viewClass" value="com.cyh.core.freemarker.FreeMarkerViewExtend"/>
         <property name="suffix" value=".ftl"/>
         <property name="contentType" value="text/html;charset=utf-8"/>
@@ -77,4 +78,29 @@
         <property name="requestContextAttribute" value="request"/>
         <property name="exposeRequestAttributes" value="true"/>
     </bean>
+
+    <!--配置freemark拓展-->
+    <bean id="freemarkerConfig" class="com.cyh.core.freemarker.FreeMarkerConfigExtend">
+        <property name="templateLoaderPath" value="/WEB-INF/ftl/"/>
+        <property name="defaultEncoding" value="utf-8"/><!--设置默认的编码方式-->
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="xml_escape" value-ref="fmXmlEscape"/>
+            </map>
+        </property>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="defaultEncoding">UTF-8</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <prop key="auto_import"><!--自动导入一些页面-->
+                    /config/left.ftl as _left,
+                    /config/top.ftl as _top
+                </prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
 </beans>
