@@ -143,4 +143,8 @@
     delete from u_user_role
     WHERE uid = #{id,jdbcType=BIGINT}
   </delete>
+  <delete id="deleteRoleByUserIds">
+    DELETE FROM u_user_role
+    WHERE uid IN (#{userIds,jdbcType=VARCHAR})
+  </delete>
 </mapper>

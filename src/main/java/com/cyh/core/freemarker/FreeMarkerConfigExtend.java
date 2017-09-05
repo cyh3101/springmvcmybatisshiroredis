@@ -16,6 +16,7 @@ public class FreeMarkerConfigExtend extends FreeMarkerConfigurer{
     public void afterPropertiesSet() throws IOException, TemplateException {
         super.afterPropertiesSet();
         Configuration cfg = this.getConfiguration();
+        cfg.setDefaultEncoding("UTF-8");
         putInitShared(cfg);
     }
 

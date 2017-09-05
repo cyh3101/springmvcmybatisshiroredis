@@ -19,7 +19,6 @@
     </div>
 </#macro>
 <#macro memeber index>
-
     <div class="col-md-2">
         <ul class="nav nav-list nav-stacked nav-tabs dropdown">
             <li class="${(index==1)?string('active','')}"><a href="${basePath}/member/list">

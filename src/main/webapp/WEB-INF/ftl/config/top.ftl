@@ -12,7 +12,6 @@
                         <li><a href="${basePath}/role/myPermission">我的权限</a> </li>
                     </ul>
                 </li>
-
                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         用户中心<span class="caret"></span></a>
                         <ul class="dropdown-menu">
