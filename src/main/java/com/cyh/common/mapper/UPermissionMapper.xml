@@ -209,4 +209,13 @@
     FROM u_permission
     <include refid="where_sql"/>
   </select>
+  <select id="findPermissionByUserId" resultType="java.lang.String">
+    SELECT
+	    up.url
+    FROM
+        `u_permission` up
+    LEFT JOIN u_role_permission urp ON urp.pid = up.id
+    LEFT JOIN u_user_role uur ON urp.rid = uur.rid
+    where uur.uid = #{id,jdbcType=BIGINT}
+  </select>
 </mapper>

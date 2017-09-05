@@ -28,7 +28,7 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
 
     @Override
     public Set<String> findPermissionByUserId(Long id) {
-        return null;
+        return uPermissionMapper.findPermissionByUserId(id);
     }
 
     @Override

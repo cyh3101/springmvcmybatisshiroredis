@@ -35,7 +35,8 @@ public class MemberController extends BaseController{
         map.put("findContent",findContent);
         Pagination<UUser> page = uUserService.findByPage(map, pageNo, pageSize);
         map.put("page", page);
-        return new ModelAndView("member/list");
+        return new ModelAndView("member/test");
+//        return new ModelAndView("member/list");
     }
 
     @RequestMapping(value = "/online", method = RequestMethod.GET)

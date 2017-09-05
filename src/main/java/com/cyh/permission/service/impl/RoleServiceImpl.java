@@ -27,7 +27,7 @@ public class RoleServiceImpl extends BaseMybatisDao<URoleMapper> implements Role
 
     @Override
     public Set<String> findRoleByUserId(Long id) {
-        return null;
+        return uRoleMapper.findRoleByUserId(id);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.cyh.core.shiro;
 
 import com.cyh.common.model.UUser;
 import com.cyh.core.shiro.token.manager.ShiroToken;
+import com.cyh.core.shiro.token.manager.TokenManager;
 import com.cyh.permission.service.PermissionService;
 import com.cyh.permission.service.RoleService;
 import com.cyh.user.service.UUserService;
@@ -28,12 +29,13 @@ public class SampleRealm extends AuthorizingRealm{
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        String email = principalCollection.getPrimaryPrincipal().toString();
-        UUser user = uUserService.findUserByEmail(email);
-        Set<String> permissions = permissionService.findPermissionByUserId(user.getId());
+        Long userId = TokenManager.getUserId();
+        //String email = principalCollection.getPrimaryPrincipal().toString();
+        //UUser user = uUserService.findUserByEmail(email);
+        Set<String> permissions = permissionService.findPermissionByUserId(userId);
         info.setStringPermissions(permissions);
 
-        Set<String> roles = roleService.findRoleByUserId(user.getId());
+        Set<String> roles = roleService.findRoleByUserId(userId);
         info.setRoles(roles);
         return info;
     }

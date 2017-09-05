@@ -15,9 +15,10 @@ public class FreeMarkerConfigExtend extends FreeMarkerConfigurer{
     @Override
     public void afterPropertiesSet() throws IOException, TemplateException {
         super.afterPropertiesSet();
-        Configuration cfg = this.getConfiguration();
-        cfg.setDefaultEncoding("UTF-8");
-        putInitShared(cfg);
+//        Configuration cfg = this.getConfiguration();
+//        cfg.setDefaultEncoding("UTF-8");
+//        putInitShared(cfg);
+        this.getConfiguration().setSharedVariable("shiro",new ShiroTags());
     }
 
     public static void put(Configuration cfg, String k, Object v) throws TemplateModelException {

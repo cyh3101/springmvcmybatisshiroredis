@@ -44,5 +44,4 @@
         </nav>
     </div>
 </div>
-
 </#macro>
