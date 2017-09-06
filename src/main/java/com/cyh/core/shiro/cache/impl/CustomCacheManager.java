@@ -26,6 +26,6 @@ public class CustomCacheManager implements CacheManager{
 
     @Override
     public <K, V> Cache<K, V> getCache(String s) throws CacheException {
-        return null;
+        return getShiroCacheManager().getCache(s);
     }
 }

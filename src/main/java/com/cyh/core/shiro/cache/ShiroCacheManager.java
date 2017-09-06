@@ -1,7 +1,6 @@
 package com.cyh.core.shiro.cache;
 
 import org.apache.shiro.cache.Cache;
-
 /**
  * Created by cai on 2017/7/14.
  */

@@ -70,7 +70,7 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
     }
 
     @Override
-    public UPermission addPermision(UPermission permission) {
+    public UPermission addPermission(UPermission permission) {
         uPermissionMapper.insert(permission);
         return permission;
     }

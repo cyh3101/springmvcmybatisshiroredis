@@ -19,5 +19,5 @@ public interface PermissionService {
 
     Map<String, Object> deleteById(String ids);
 
-    UPermission addPermision(UPermission permission);
+    UPermission addPermission(UPermission permission);
 }

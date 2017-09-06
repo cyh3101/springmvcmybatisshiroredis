@@ -41,7 +41,7 @@ public class PermissionController extends BaseController{
     @ResponseBody
     public Map<String, Object> addPermission(UPermission permission){
         try {
-            UPermission entity = permissionService.addPermision(permission);
+            UPermission entity = permissionService.addPermission(permission);
             resultMap.put("status", 200);
             resultMap.put("message", "添加成功");
         } catch (Exception e){
