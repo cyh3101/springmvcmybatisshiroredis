@@ -79,7 +79,7 @@ public class RoleController extends BaseController{
         return resultMap;
     }
 
-    @RequestMapping(value = "/deleteRoleById", method = RequestMethod.POST)
+        @RequestMapping(value = "/deleteRoleById", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> deleteRoleById(String ids){
         return roleService.deleteRoleById(ids);
