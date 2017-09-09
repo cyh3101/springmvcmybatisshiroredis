@@ -1,6 +1,7 @@
 package com.cyh.core.shiro.cache.impl;
 
 import com.cyh.core.shiro.cache.JedisManager;
+import com.cyh.core.shiro.cache.JedisShiroCache;
 import com.cyh.core.shiro.cache.ShiroCacheManager;
 import org.apache.shiro.cache.Cache;
 
@@ -20,11 +21,11 @@ public class JedisShiroCacheManager implements ShiroCacheManager{
 
     @Override
     public <K, V> Cache<K, V> getCache(String name) {
-        return null;
+        return new JedisShiroCache<>(name, getJedisManager());
     }
 
     @Override
     public void destroy() {
-
+        //  TODO
     }
 }

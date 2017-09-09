@@ -14,9 +14,6 @@
         </property>
     </bean>
 
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-        <property name="securityManager" ref="securityManager"/>
-    </bean>
     <!--登陆筛选-->
     <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
         <property name="usernameParam" value="userName"/>
@@ -24,32 +21,52 @@
         <property name="rememberMeParam" value="rememberMe"/>
         <property name="loginUrl" value="u/login"/>
     </bean>
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+
+
     <!--安全管理器-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="cacheManager" ref="customCacheManager"/>
-        <property name="sessionManager" ref="sessionManager"/>
+        <property name="cacheManager" ref="customCacheManager"/><!--缓存管理器-->
+        <property name="sessionManager" ref="sessionManager"/><!--会话管理器-->
         <property name="realm" ref="myRealm"/>
      </bean>
-    <!--realm-->
-    <bean id="myRealm" class="com.cyh.core.shiro.SampleRealm">
-        <property name="credentialsMatcher" ref="credentialsMatcher"/>
-    </bean>
-    <!--密码验证-->
-    <bean id="credentialsMatcher" class="com.cyh.core.shiro.MyCredentialsMatcher">
-    </bean>
 
     <!--缓存管理器-->
     <bean id="customCacheManager" class="com.cyh.core.shiro.cache.impl.CustomCacheManager">
         <property name="shiroCacheManager" ref="jedisShiroCacheManager"/>
     </bean>
 
-    <bean id="jedisShiroCacheManager" class="com.cyh.core.shiro.cache.impl.JedisShiroCacheManager">
+    <!--会话管理器-->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionDAO" ref="customShiroSessionDAO"/>
+        <property name="sessionListeners">
+            <list>
+                <ref bean="customSessionListener"/>
+            </list>
+        </property>
     </bean>
 
+    <!--realm-->
+    <bean id="myRealm" class="com.cyh.core.shiro.SampleRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+    </bean>
 
+    <!--密码验证-->
+    <bean id="credentialsMatcher" class="com.cyh.core.shiro.MyCredentialsMatcher"/>
+
+    <!--jedisshiro缓存管理器-->
+    <bean id="jedisShiroCacheManager" class="com.cyh.core.shiro.cache.impl.JedisShiroCacheManager"/>
+
+    <!--ehcache缓存管理器-->
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
         <property name="cacheManager" ref="ehCacheMananger"/>
     </bean>
+
+    <!--ehcache管理器生成bean-->
     <bean id="ehCacheMananger" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation" value="classpath:ehcache.xml"/>
         <property name="shared" value="true"/>
@@ -61,23 +78,12 @@
         <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
     </bean>
 
-
-    <!--sessionManager-->
-    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <property name="sessionDAO" ref="customShiroSessionDAO"/>
-        <property name="sessionListeners">
-            <list>
-                <ref bean="customSessionListener"/>
-            </list>
-        </property>
-    </bean>
-
-    <!--customSessionListener-->
+    <!--会话监听器-->
     <bean id="customSessionListener" class="com.cyh.core.shiro.listenter.CustomSessionListener">
         <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
     </bean>
 
-    <!--session访问对象-->
+    <!--session访问dao对象-->
     <bean id="customShiroSessionDAO" class="com.cyh.core.shiro.CustomShiroSessionDAO">
         <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>

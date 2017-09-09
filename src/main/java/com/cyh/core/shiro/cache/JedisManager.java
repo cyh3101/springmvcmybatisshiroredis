@@ -1,5 +1,6 @@
 package com.cyh.core.shiro.cache;
 
+import com.cyh.common.utils.LoggerUtils;
 import com.cyh.common.utils.SerializeUtil;
 import com.cyh.common.utils.StringUtils;
 import org.apache.shiro.session.Session;
@@ -13,6 +14,8 @@ import java.util.Set;
 
 /**
  * Created by cai on 2017/8/21.
+ * jedis管理器,通过该类可以从jedis池中得到jedis实例资源
+ * 通过jedis实例资源保存数据到redis服务器/通过key从redis服务器中得到相关的数据
  */
 public class JedisManager {
     private JedisPool jedisPool;
@@ -40,6 +43,7 @@ public class JedisManager {
             getJedisPool().returnResource(jedis);
         }
     }
+
     /**
      * 得到jedis对象
      * @return
@@ -109,6 +113,27 @@ public class JedisManager {
             returnResource(jedis, isBroken);
         }
         return result;
+    }
+
+    /**
+     * 通过key从redis中删除相关的数据
+     * @param dbIndex
+     * @param key
+     */
+    public void deleteValueByKey(int dbIndex, byte[] key){
+        Jedis jedis = null;
+        boolean isBroken = false;
+        try {
+            jedis = getJedis();
+            jedis.select(dbIndex);
+            Long result = jedis.del(key);
+            LoggerUtils.fmtDebug(getClass(),"删除成功:%s", result.toString());
+        } catch (Exception e){
+            isBroken = true;
+            throw e;
+        }finally {
+            returnResource(jedis, isBroken);
+        }
     }
 
     /**
