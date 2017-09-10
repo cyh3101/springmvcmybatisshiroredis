@@ -102,6 +102,10 @@
         <property name="jedisPool" ref="jedisPool"/>
     </bean>
 
+    <bean id="userManager" class="com.cyh.user.manager.UserManager">
+        <property name="jedisManager" ref="jedisManager"/>
+    </bean>
+
     <!--shiro生命周期处理器-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 </beans>

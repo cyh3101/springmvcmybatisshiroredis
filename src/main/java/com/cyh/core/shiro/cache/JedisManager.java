@@ -137,6 +137,30 @@ public class JedisManager {
     }
 
     /**
+     * 判断是否存在key
+     * @param key
+     * @return
+     */
+    public boolean isExists(String key){
+        return isExists(SerializeUtil.serialize(key));
+    }
+
+    public boolean isExists(byte[] key){
+        Jedis jedis = null;
+        boolean isBroken = false;
+        boolean isExist = false;
+        try {
+            jedis = getJedis();
+            isExist = jedis.exists(key);
+        }catch (Exception e){
+            isBroken = true;
+        }finally {
+            returnResource(jedis, isBroken);
+        }
+        return isExist;
+    }
+
+    /**
      * 得到所有的sessions
      * @param dbIndex
      * @param redisShiroSession

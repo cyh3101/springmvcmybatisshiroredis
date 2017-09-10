@@ -6,6 +6,7 @@ import com.cyh.core.mybatis.page.Pagination;
 import com.cyh.core.shiro.CustomSessionManager;
 import com.cyh.core.shiro.cache.impl.CustomCacheManager;
 import com.cyh.user.bo.UserOnlineBo;
+import com.cyh.user.manager.UserManager;
 import com.cyh.user.service.UUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,7 @@ import java.util.Map;
 public class MemberController extends BaseController{
     @Autowired
     CustomSessionManager customSessionManager;
+
     @Autowired
     private UUserService uUserService;
 

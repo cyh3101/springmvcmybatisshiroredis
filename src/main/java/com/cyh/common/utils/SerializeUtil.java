@@ -4,6 +4,10 @@ package com.cyh.common.utils;
 import net.sf.json.JSONObject;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cai on 2017/8/2.
@@ -62,13 +66,63 @@ public class SerializeUtil {
     }
 
     /**
+     * 序列化list
+     * @param list
+     * @return
+     */
+    public static <T> byte[] serialize(List<T> list){
+        if(null == list)
+            return null;
+        ByteArrayOutputStream bo = null;
+        ObjectOutputStream os = null;
+        byte[] bytes = null;
+        try {
+            bo = new ByteArrayOutputStream();
+            os = new ObjectOutputStream(bo);
+            for (Object obj:list
+                 ) {
+                os.writeObject(obj);
+            }
+            bytes = bo.toByteArray();
+        }catch (Exception e){
+            LoggerUtils.fmtError(SerializeUtil.class, "序列化失败", e);
+        }
+        return bytes;
+    }
+
+    /**
+     * 反序列化list
+     * @param bytes
+     * @return
+     */
+    public static <T> List<T> deserialize(byte[] bytes){
+        ByteArrayInputStream bi = null;
+        ObjectInputStream os = null;
+        List<T> list = new LinkedList<>();
+        try {
+            bi = new ByteArrayInputStream(bytes);
+            os = new ObjectInputStream(bi);
+            while(bi.available() > 0){
+                T obj = (T)os.readObject();
+                list.add(obj);
+            }
+        }catch (Exception e){
+            LoggerUtils.fmtError(SerializeUtil.class, "反序列化失败", e);
+        } finally {
+            close(bi);
+            close(os);
+        }
+        return list;
+    }
+
+    /**
      * 反序列化方法重载
      * @param in
      * @return
      */
-    public static Object deserialize(byte[] in){
-        return deserialize(in, Object.class);
-    }
+//    public static Object deserialize(byte[] in){
+//        return deserialize(in, Object.class);
+//    }
 
     /**
      * 关闭流

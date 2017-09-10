@@ -28,6 +28,9 @@ public class RoleController extends BaseController{
     @Autowired
     RoleService roleService;
 
+    @Autowired
+    private UserManager userManager;
+
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView index(String findContent, ModelMap map){
         map.put("findContent", findContent);
@@ -60,7 +63,7 @@ public class RoleController extends BaseController{
 //        return data;
         //得到当前用户的角色信息roles，里面包括了permissions信息
         List<URole> roles = roleService.findNowAllPermissions();
-        List<Map<String, Object>> treeData = UserManager.getPermissionTree(roles);
+        List<Map<String, Object>> treeData = userManager.getPermissionTree(roles);
         return treeData;
     }
 
