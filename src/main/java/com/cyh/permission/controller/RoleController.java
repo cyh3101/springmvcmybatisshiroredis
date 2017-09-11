@@ -62,8 +62,8 @@ public class RoleController extends BaseController{
         //        List<Map<String, Object>> data = UserManager.getPermissionTree(roles);
 //        return data;
         //得到当前用户的角色信息roles，里面包括了permissions信息
-        List<URole> roles = roleService.findNowAllPermissions();
-        List<Map<String, Object>> treeData = userManager.getPermissionTree(roles);
+
+        List<Map<String, Object>> treeData = userManager.getPermissionTree();
         return treeData;
     }
 

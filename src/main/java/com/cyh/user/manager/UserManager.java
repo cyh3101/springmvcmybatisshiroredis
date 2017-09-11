@@ -9,6 +9,7 @@ import com.cyh.core.CustomCachManager;
 import com.cyh.core.shiro.cache.JedisManager;
 import com.cyh.core.shiro.cache.impl.CustomCacheManager;
 import com.cyh.core.shiro.token.manager.TokenManager;
+import com.cyh.permission.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -21,6 +22,8 @@ public class UserManager {
     private static final String PERMISSION_TREE = "PERMISSION_TREE";
     private static final int DB_INDEX = 1;
 
+    @Autowired
+    private RoleService roleService;
 
     private  JedisManager jedisManager ;
 
@@ -45,10 +48,10 @@ public class UserManager {
 
     /**
      * 返回树形结构
-     * @param roles
      * @return
      */
-    public  List<Map<String, Object>> getPermissionTree(List<URole> roles){
+    public  List<Map<String, Object>> getPermissionTree(){
+
         //customCacheManager.getCache()
         List<Map<String, Object>> treeData = new LinkedList<>();
         String keyvalue = PERMISSION_TREE + ":" + TokenManager.getSession().getId().toString();
@@ -56,8 +59,9 @@ public class UserManager {
         byte[] bytevalue = null;
         if(jedisManager.isExists(bytekey) && jedisManager.getValueByKey(DB_INDEX, bytekey) != null){
             bytevalue = jedisManager.getValueByKey(DB_INDEX, bytekey);
-            treeData = SerializeUtil.deserialize(bytevalue);
+            treeData = SerializeUtil.deserialize(bytevalue, LinkedList.class);
         }else {
+            List<URole> roles = roleService.findNowAllPermissions();
             for (URole role:roles
                     ) {
                 Map<String, Object> map = new LinkedHashMap<>();

@@ -194,4 +194,9 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
         }
         return resultMap;
     }
+
+    @Override
+    public List<Map<String, Object>> getPermissionTree() {
+        return null;
+    }
 }

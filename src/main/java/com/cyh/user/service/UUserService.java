@@ -43,4 +43,6 @@ public interface UUserService {
     Map<String, Object> deleteById(String ids);
 
     Map<String, Object> clearRoleByUserIds(String ids);
+
+    List<Map<String, Object>> getPermissionTree();
 }

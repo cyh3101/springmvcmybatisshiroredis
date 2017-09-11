@@ -72,9 +72,7 @@
         </script>
     </head>
     <body data-target="#one" data-spy="scroll">
-        <@shiro.hasPermission name="888888">
-            aaaaa
-        </@shiro.hasPermission>
+
         <@top/>
         <div class="container" style="min-height: 300px;margin-top: 60px;">
             <div class="row">
