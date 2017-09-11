@@ -118,4 +118,18 @@ public class UserLoginController extends BaseController{
 
         //home branch
     }
+
+    @RequestMapping(value = "/logout")
+    @ResponseBody
+    public Map<String, Object> logout(){
+        try {
+            TokenManager.logout();
+            resultMap.put("status", 200);
+            resultMap.put("message", "退出成功");
+        }catch (Exception e){
+            resultMap.put("status", 500);
+            resultMap.put("message", "退出失败");
+        }
+        return  resultMap;
+    }
 }

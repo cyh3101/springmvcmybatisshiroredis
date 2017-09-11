@@ -37,11 +37,20 @@
                     <ul class="dropdown-menu">
                         <li><a href="${basePath}/u/index">个人资料</a> </li>
                         <li><a href="${basePath}/role/myPermission">我的权限</a> </li>
-                        <li><a href="#">退出登录</a> </li>
+                        <li><a href="javascript:void(0);" onclick="logout()">退出登录</a> </li>
                     </ul>
                 </li>
             </ul>
         </nav>
     </div>
+    <script>
+        function logout() {
+            $.getJSON("${basePath}/u/logout",{},function (result) {
+                if(result && result.status == 200){
+                    window.location.href = "${basePath}/u/login";
+                }
+            })
+        }
+    </script>
 </div>
 </#macro>
