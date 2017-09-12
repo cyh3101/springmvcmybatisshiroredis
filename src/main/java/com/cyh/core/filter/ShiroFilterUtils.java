@@ -15,10 +15,20 @@ import java.util.Map;
  * Created by cyh on 2017/9/12.
  */
 public class ShiroFilterUtils {
+    /**
+     * 判断是否为ajax请求
+     * @param request
+     * @return
+     */
     public static boolean isAjax(ServletRequest request){
         return "XMLHttpRequest".equalsIgnoreCase(((HttpServletRequest)request).getHeader("X-Requested-With"));
     }
 
+    /**
+     * 输出流
+     * @param response
+     * @param resultMap
+     */
     public static void out(ServletResponse response, Map<String, Object> resultMap){
         PrintWriter out = null;
         try {
