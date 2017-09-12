@@ -31,6 +31,8 @@ public class JedisShiroCache<K,V> implements Cache<K,V>{
         this.name = name;
     }
 
+    private JedisShiroCache(){}
+
     public JedisShiroCache(String name, JedisManager jedisManager){
         this.name = name;
         this.jedisManager = jedisManager;

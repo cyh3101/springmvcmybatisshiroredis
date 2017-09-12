@@ -72,7 +72,6 @@
         </script>
     </head>
     <body data-target="#one" data-spy="scroll">
-
         <@top/>
         <div class="container" style="min-height: 300px;margin-top: 60px;">
             <div class="row">
