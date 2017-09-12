@@ -59,7 +59,9 @@
     <bean id="credentialsMatcher" class="com.cyh.core.shiro.MyCredentialsMatcher"/>
 
     <!--jedisshiro缓存管理器-->
-    <bean id="jedisShiroCacheManager" class="com.cyh.core.shiro.cache.impl.JedisShiroCacheManager"/>
+    <bean id="jedisShiroCacheManager" class="com.cyh.core.shiro.cache.impl.JedisShiroCacheManager">
+        <property name="jedisManager" ref="jedisManager"/>
+    </bean>
 
     <!--ehcache缓存管理器-->
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">

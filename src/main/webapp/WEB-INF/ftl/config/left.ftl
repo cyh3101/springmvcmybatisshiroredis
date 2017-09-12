@@ -19,7 +19,7 @@
     </div>
 </#macro>
 <#macro memeber index>
-    <@shiro.hasAnyRoles name='888888,100002'>
+    <@shiro.hasAnyRoles name="888888,100002">
         <div class="col-md-2">
             <ul class="nav nav-list nav-stacked nav-tabs dropdown">
                 <li class="${(index==1)?string('active','')}"><a href="${basePath}/member/list">
@@ -31,27 +31,19 @@
     </@shiro.hasAnyRoles>
 </#macro>
 <#macro role index>
-    <@shiro.hasAnyRoles name='888888,100003'>
-    <div class="col-md-2">
-        <ul class="nav nav-list nav-stacked nav-tabs dropdown">
-                <@shiro.hasPermission name="role/index">
-                    <li class="${(index==1)?string('active','')}"><a href="${basePath}/role/index">
-                        <i class="glyphicon glyphicon-chevron-right"></i>角色列表</a> </li>
-                </@shiro.hasPermission>
-                <@shiro.hasPermission name="role/allocation">
-                    <li class="${(index==2)?string('active','')}"><a href="${basePath}/role/allocation">
-                        <i class="glyphicon glyphicon-chevron-right"></i>角色分配</a> </li>
-                </@shiro.hasPermission>
-                <@shiro.hasPermission name="permission/index">
-                    <li class="${(index==3)?string('active','')}"><a href="${basePath}/permission/index">
-                        <i class="glyphicon glyphicon-chevron-right"></i>权限列表</a> </li>
-                </@shiro.hasPermission>
-                <@shiro.hasPermission name="permission/allocation">
-                    <li class="${(index==4)?string('active','')}"><a href="${basePath}/permission/allocation">
-                        <i class="glyphicon glyphicon-chevron-right"></i>权限分配</a> </li>
-                </@shiro.hasPermission>
-        </ul>
-    </div>
+    <@shiro.hasAnyRoles name="888888,100003">
+        <div class="col-md-2">
+            <ul class="nav nav-list nav-stacked nav-tabs dropdown">
+                <li class="${(index==1)?string('active','')}"><a href="${basePath}/role/index">
+                    <i class="glyphicon glyphicon-chevron-right"></i>角色列表</a> </li>
+                <li class="${(index==2)?string('active','')}"><a href="${basePath}/role/allocation">
+                    <i class="glyphicon glyphicon-chevron-right"></i>角色分配</a> </li>
+                <li class="${(index==3)?string('active','')}"><a href="${basePath}/permission/index">
+                    <i class="glyphicon glyphicon-chevron-right"></i>权限列表</a> </li>
+                <li class="${(index==4)?string('active','')}"><a href="${basePath}/permission/allocation">
+                    <i class="glyphicon glyphicon-chevron-right"></i>权限分配</a> </li>
+            </ul>
+        </div>
     </@shiro.hasAnyRoles>
 </#macro>
 
