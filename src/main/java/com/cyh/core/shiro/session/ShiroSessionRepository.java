@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 /**
+ * 操作ShiroSession的仓库的接口类，具体以什么样的方式实现，要看具体的实现类
  * Created by cyh on 2017/8/21.
  */
 public interface ShiroSessionRepository {

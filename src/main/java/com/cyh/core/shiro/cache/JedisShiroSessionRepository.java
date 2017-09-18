@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 /**
+ * ShiroSession仓库的实现类，这里具体用Jedis来实现
  * Created by cai on 2017/8/21.
  */
 public class JedisShiroSessionRepository implements ShiroSessionRepository{

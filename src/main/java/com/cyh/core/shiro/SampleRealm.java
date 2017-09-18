@@ -6,6 +6,7 @@ import com.cyh.core.shiro.token.manager.TokenManager;
 import com.cyh.permission.service.PermissionService;
 import com.cyh.permission.service.RoleService;
 import com.cyh.user.service.UUserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -37,6 +38,7 @@ public class SampleRealm extends AuthorizingRealm{
 
         Set<String> roles = roleService.findRoleByUserId(userId);
         info.setRoles(roles);
+        //SecurityUtils
         return info;
     }
 

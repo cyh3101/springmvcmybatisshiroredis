@@ -14,8 +14,10 @@ import java.util.Map;
  * Created by cyh on 2017/9/12.
  */
 public class LoginFilter extends AccessControlFilter{
+
     @Override
     protected boolean isAccessAllowed(ServletRequest servletRequest, ServletResponse servletResponse, Object o) throws Exception {
+
         UUser user = TokenManager.getToken();
         if(null != user || isLoginRequest(servletRequest, servletResponse)){
             return Boolean.TRUE;
@@ -27,11 +29,13 @@ public class LoginFilter extends AccessControlFilter{
                 resultMap.put("message","\\u5F53\\u524D\\u7528\\u6237\\u6CA1\\u6709\\u767B\\u5F55\\uFF01");//当前用户没有登录
             ShiroFilterUtils.out(servletResponse, resultMap);
         }
-        return Boolean.TRUE;
+
+        return Boolean.FALSE;
     }
 
     @Override
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
+        saveRequestAndRedirectToLogin(servletRequest, servletResponse);
         return Boolean.FALSE;
     }
 }

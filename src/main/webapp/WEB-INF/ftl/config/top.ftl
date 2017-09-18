@@ -62,7 +62,7 @@
         function logout() {
             $.getJSON("${basePath}/u/logout",{},function (result) {
                 if(result && result.status == 200){
-                    window.location.href = "${basePath}/u/login";
+                    window.location.reload();
                 }
             })
         }

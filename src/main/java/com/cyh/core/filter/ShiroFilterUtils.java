@@ -15,6 +15,10 @@ import java.util.Map;
  * Created by cyh on 2017/9/12.
  */
 public class ShiroFilterUtils {
+
+    final static String LOGIN_URL = "/u/login";
+    final static String UNAUTHC_URL = "/open/authc";
+
     /**
      * 判断是否为ajax请求
      * @param request
