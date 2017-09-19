@@ -19,11 +19,11 @@
                 /u/submitLogin = anon
                 /u/subRegister = anon
                 /u/logout = anon
-                /u/index = authc
+                /u/index = login
                 /u/updateSelf = authc
                 /u/updatePswd = authc
                 /member/** = authc
-                /role/** = authc
+                /role/** = authc,role[888888]
                 /permission/** = authc
             </value>
         </property>
@@ -38,6 +38,9 @@
     <!--筛选器-->
     <bean id="myOncePerRequstFilter" class="com.cyh.core.filter.MyOncePerRequestFilter"/>
     <bean id="login" class="com.cyh.core.filter.LoginFilter"></bean>
+    <bean id="role" class="com.cyh.core.filter.RoleFilter"></bean>
+    <bean id="permission" class="com.cyh.core.filter.PermissionFilter"></bean>
+    <bean id="kickoutFilter" class="com.cyh.core.filter.KickoutSessionFilter"></bean>
     <!--登陆筛选-->
     <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
         <property name="usernameParam" value="userName"/>
